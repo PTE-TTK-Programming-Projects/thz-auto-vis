@@ -1,0 +1,5 @@
+g++
+-I/usr/include/qt
+-I/usr/include/qt/QtWidgets
+-I/usr/include/qt/QtSerialPort
+-I/usr/include/qt/QtCharts
