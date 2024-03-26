@@ -18,6 +18,7 @@ private slots:
 public slots:
   void getStatus();
 signals:
+  void sendStatus(std::string status);
 };
 
 #endif // SCOPE_QT
