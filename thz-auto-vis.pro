@@ -7,6 +7,7 @@ TARGET = thz-auto-vis
 INCLUDEPATH += . /opt/picoscope/include
 QT += widgets charts
 LIBS += -L/opt/picoscope/lib -lps5000a -lps5000aWrap
+CONFIG += force_debug_info
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.

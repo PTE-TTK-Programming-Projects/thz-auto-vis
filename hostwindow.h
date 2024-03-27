@@ -14,7 +14,7 @@ private slots:
   void showStatus(std::string status);
 
 private:
-  QPushButton *button;
+  QPushButton *button, *measurebutton;
   QLineEdit *status;
   PicoScope *scope;
 };
