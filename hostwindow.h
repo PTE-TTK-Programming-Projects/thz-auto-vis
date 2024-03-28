@@ -2,8 +2,8 @@
 #define HOST_WINDOW
 
 #include "./scope.h"
-#include <QtWidgets>
 #include <QtCharts>
+#include <QtWidgets>
 #include <string>
 
 class HostWindow : public QWidget {
@@ -14,9 +14,10 @@ public:
 private slots:
   void showStatus(std::string status);
   void showMeasurementData(int32_t *bufferSize, int16_t *buffer);
+  void resetZoom();
 
 private:
-  QPushButton *button, *measurebutton;
+  QPushButton *button, *measurebutton, *homeButton;
   QLineEdit *status;
   PicoScope *scope;
   QChartView *chartView;

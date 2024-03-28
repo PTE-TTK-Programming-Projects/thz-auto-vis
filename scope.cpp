@@ -16,7 +16,7 @@ PicoScope::PicoScope() : QObject() {
   }
   maxValue = new int16_t;
   ps5000aMaximumValue(*handle, maxValue);
-  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_50MV, 0);
+  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_10MV, 0);
   ps5000aSetSimpleTrigger(
       *handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A, *maxValue / 10,
       PS5000A_THRESHOLD_DIRECTION::PS5000A_FALLING, 0, 1000);
@@ -27,7 +27,7 @@ PicoScope::PicoScope() : QObject() {
 }
 
 void PicoScope::measure() {
-  ps5000aRunBlock(*handle, 1000, 1000, 128, timeTookMS, 0, nullptr, nullptr);
+  ps5000aRunBlock(*handle, 1000, 1000, 32, timeTookMS, 0, nullptr, nullptr);
   polltimer->start();
 }
 
