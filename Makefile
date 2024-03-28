@@ -52,14 +52,14 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = hostwindow.cpp \
+SOURCES       = scopewindow.cpp \
 		main.cpp \
-		scope.cpp moc_hostwindow.cpp \
+		scope.cpp moc_scopewindow.cpp \
 		moc_scope.cpp
-OBJECTS       = hostwindow.o \
+OBJECTS       = scopewindow.o \
 		main.o \
 		scope.o \
-		moc_hostwindow.o \
+		moc_scopewindow.o \
 		moc_scope.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
@@ -370,8 +370,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/exceptions.prf \
 		/usr/lib/qt/mkspecs/features/yacc.prf \
 		/usr/lib/qt/mkspecs/features/lex.prf \
-		thz-auto-vis.pro hostwindow.h \
-		scope.h hostwindow.cpp \
+		thz-auto-vis.pro scopewindow.h \
+		scope.h scopewindow.cpp \
 		main.cpp \
 		scope.cpp
 QMAKE_TARGET  = thz-auto-vis
@@ -1021,8 +1021,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents hostwindow.h scope.h $(DISTDIR)/
-	$(COPY_FILE) --parents hostwindow.cpp main.cpp scope.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents scopewindow.h scope.h $(DISTDIR)/
+	$(COPY_FILE) --parents scopewindow.cpp main.cpp scope.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1054,10 +1054,10 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -g -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_hostwindow.cpp moc_scope.cpp
+compiler_moc_header_make_all: moc_scopewindow.cpp moc_scope.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_hostwindow.cpp moc_scope.cpp
-moc_hostwindow.cpp: hostwindow.h \
+	-$(DEL_FILE) moc_scopewindow.cpp moc_scope.cpp
+moc_scopewindow.cpp: scopewindow.h \
 		scope.h \
 		/opt/picoscope/include/ps5000aWrap.h \
 		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
@@ -1069,7 +1069,7 @@ moc_hostwindow.cpp: hostwindow.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
 
 moc_scope.cpp: scope.h \
 		/opt/picoscope/include/ps5000aWrap.h \
@@ -1100,7 +1100,7 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-hostwindow.o: hostwindow.cpp hostwindow.h \
+scopewindow.o: scopewindow.cpp scopewindow.h \
 		scope.h \
 		/opt/picoscope/include/ps5000aWrap.h \
 		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
@@ -1110,9 +1110,9 @@ hostwindow.o: hostwindow.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hostwindow.o hostwindow.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scopewindow.o scopewindow.cpp
 
-main.o: main.cpp hostwindow.h \
+main.o: main.cpp scopewindow.h \
 		scope.h \
 		/opt/picoscope/include/ps5000aWrap.h \
 		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
@@ -1135,8 +1135,8 @@ scope.o: scope.cpp scope.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scope.o scope.cpp
 
-moc_hostwindow.o: moc_hostwindow.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_hostwindow.o moc_hostwindow.cpp
+moc_scopewindow.o: moc_scopewindow.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_scopewindow.o moc_scopewindow.cpp
 
 moc_scope.o: moc_scope.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_scope.o moc_scope.cpp

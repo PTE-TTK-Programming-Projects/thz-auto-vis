@@ -6,11 +6,11 @@
 #include <QtWidgets>
 #include <string>
 
-class HostWindow : public QWidget {
+class ScopeWindow : public QWidget {
   Q_OBJECT;
 
 public:
-  HostWindow(QWidget *parent = nullptr);
+  ScopeWindow(QWidget *parent = nullptr);
 private slots:
   void showStatus(std::string status);
   void showMeasurementData(int32_t *bufferSize, int16_t *buffer);

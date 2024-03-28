@@ -1,10 +1,12 @@
-#include "./hostwindow.h"
+#include "./scopewindow.h"
 
-HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
+ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   button = new QPushButton("Status");
   measurebutton = new QPushButton("Measure");
   homeButton = new QPushButton("Reset Zoom");
   status = new QLineEdit("");
+  status->setReadOnly(true);
+  status->setMinimumWidth(200);
   scope = new PicoScope();
   chart = new QChart();
   chartView = new QChartView(chart);
@@ -26,21 +28,21 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
   chart->createDefaultAxes();
   connect(button, &QPushButton::clicked, scope, &PicoScope::getStatus);
   connect(measurebutton, &QPushButton::clicked, scope, &PicoScope::measure);
-  connect(scope, &PicoScope::sendStatus, this, &HostWindow::showStatus);
+  connect(scope, &PicoScope::sendStatus, this, &ScopeWindow::showStatus);
   connect(scope, &PicoScope::sendMeasurement, this,
-          &HostWindow::showMeasurementData);
-  connect(homeButton, &QPushButton::clicked, this, &HostWindow::resetZoom);
+          &ScopeWindow::showMeasurementData);
+  connect(homeButton, &QPushButton::clicked, this, &ScopeWindow::resetZoom);
 }
 
-void HostWindow::showStatus(std::string status) {
+void ScopeWindow::showStatus(std::string status) {
   this->status->setText(status.c_str());
 }
 
-void HostWindow::resetZoom(){
+void ScopeWindow::resetZoom(){
   chart->zoomReset();
 }
 
-void HostWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
+void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   std::cout << *bufferSize << " data points recieved for plotting" << std::endl;
   chart->removeAllSeries();
   QLineSeries *line = new QLineSeries;
@@ -48,7 +50,8 @@ void HostWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
     line->append(i - 1000, buffer[i]);
   }
   chart->addSeries(line);
-  chart->update();
   chart->createDefaultAxes();
+  chart->legend()->hide();
+  chart->update();
 }
 

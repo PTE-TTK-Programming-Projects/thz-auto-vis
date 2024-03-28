@@ -1,5 +1,5 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'hostwindow.h'
+** Meta object code from reading C++ file 'scopewindow.h'
 **
 ** Created by: The Qt Meta Object Compiler version 67 (Qt 5.15.13)
 **
@@ -7,11 +7,11 @@
 *****************************************************************************/
 
 #include <memory>
-#include "hostwindow.h"
+#include "scopewindow.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'hostwindow.h' doesn't include <QObject>."
+#error "The header file 'scopewindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
 #error "This file was generated using the moc from 5.15.13. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -21,37 +21,37 @@
 QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
-struct qt_meta_stringdata_HostWindow_t {
+struct qt_meta_stringdata_ScopeWindow_t {
     QByteArrayData data[11];
-    char stringdata0[108];
+    char stringdata0[109];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
-    qptrdiff(offsetof(qt_meta_stringdata_HostWindow_t, stringdata0) + ofs \
+    qptrdiff(offsetof(qt_meta_stringdata_ScopeWindow_t, stringdata0) + ofs \
         - idx * sizeof(QByteArrayData)) \
     )
-static const qt_meta_stringdata_HostWindow_t qt_meta_stringdata_HostWindow = {
+static const qt_meta_stringdata_ScopeWindow_t qt_meta_stringdata_ScopeWindow = {
     {
-QT_MOC_LITERAL(0, 0, 10), // "HostWindow"
-QT_MOC_LITERAL(1, 11, 10), // "showStatus"
-QT_MOC_LITERAL(2, 22, 0), // ""
-QT_MOC_LITERAL(3, 23, 11), // "std::string"
-QT_MOC_LITERAL(4, 35, 6), // "status"
-QT_MOC_LITERAL(5, 42, 19), // "showMeasurementData"
-QT_MOC_LITERAL(6, 62, 8), // "int32_t*"
-QT_MOC_LITERAL(7, 71, 10), // "bufferSize"
-QT_MOC_LITERAL(8, 82, 8), // "int16_t*"
-QT_MOC_LITERAL(9, 91, 6), // "buffer"
-QT_MOC_LITERAL(10, 98, 9) // "resetZoom"
+QT_MOC_LITERAL(0, 0, 11), // "ScopeWindow"
+QT_MOC_LITERAL(1, 12, 10), // "showStatus"
+QT_MOC_LITERAL(2, 23, 0), // ""
+QT_MOC_LITERAL(3, 24, 11), // "std::string"
+QT_MOC_LITERAL(4, 36, 6), // "status"
+QT_MOC_LITERAL(5, 43, 19), // "showMeasurementData"
+QT_MOC_LITERAL(6, 63, 8), // "int32_t*"
+QT_MOC_LITERAL(7, 72, 10), // "bufferSize"
+QT_MOC_LITERAL(8, 83, 8), // "int16_t*"
+QT_MOC_LITERAL(9, 92, 6), // "buffer"
+QT_MOC_LITERAL(10, 99, 9) // "resetZoom"
 
     },
-    "HostWindow\0showStatus\0\0std::string\0"
+    "ScopeWindow\0showStatus\0\0std::string\0"
     "status\0showMeasurementData\0int32_t*\0"
     "bufferSize\0int16_t*\0buffer\0resetZoom"
 };
 #undef QT_MOC_LITERAL
 
-static const uint qt_meta_data_HostWindow[] = {
+static const uint qt_meta_data_ScopeWindow[] = {
 
  // content:
        8,       // revision
@@ -77,10 +77,10 @@ static const uint qt_meta_data_HostWindow[] = {
        0        // eod
 };
 
-void HostWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void ScopeWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<HostWindow *>(_o);
+        auto *_t = static_cast<ScopeWindow *>(_o);
         (void)_t;
         switch (_id) {
         case 0: _t->showStatus((*reinterpret_cast< std::string(*)>(_a[1]))); break;
@@ -91,30 +91,30 @@ void HostWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
     }
 }
 
-QT_INIT_METAOBJECT const QMetaObject HostWindow::staticMetaObject = { {
+QT_INIT_METAOBJECT const QMetaObject ScopeWindow::staticMetaObject = { {
     QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_HostWindow.data,
-    qt_meta_data_HostWindow,
+    qt_meta_stringdata_ScopeWindow.data,
+    qt_meta_data_ScopeWindow,
     qt_static_metacall,
     nullptr,
     nullptr
 } };
 
 
-const QMetaObject *HostWindow::metaObject() const
+const QMetaObject *ScopeWindow::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *HostWindow::qt_metacast(const char *_clname)
+void *ScopeWindow::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_HostWindow.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_ScopeWindow.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int HostWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int ScopeWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
