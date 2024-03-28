@@ -1,6 +1,8 @@
 #include "./scope.h"
 
 PicoScope::PicoScope() : QObject() {
+  statusTimer = new QTimer;
+  statusTimer->setInterval(500);
   ready = new int16_t;
   polltimer = new QTimer;
   polltimer->setInterval(100);
@@ -16,7 +18,7 @@ PicoScope::PicoScope() : QObject() {
   }
   maxValue = new int16_t;
   ps5000aMaximumValue(*handle, maxValue);
-  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_10MV, 0);
+  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_5V, 0);
   ps5000aSetSimpleTrigger(
       *handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A, *maxValue / 10,
       PS5000A_THRESHOLD_DIRECTION::PS5000A_FALLING, 0, 1000);
@@ -24,23 +26,31 @@ PicoScope::PicoScope() : QObject() {
                        0, PS5000A_RATIO_MODE_NONE);
   connect(polltimer, &QTimer::timeout, this, &PicoScope::pollMeasurement);
   connect(this, &PicoScope::finishSignal, this, &PicoScope::retrieveData);
+  connect(statusTimer, &QTimer::timeout, this, &PicoScope::getStatus);
+  statusTimer->start();
 }
 
 void PicoScope::measure() {
-  ps5000aRunBlock(*handle, 1000, 1000, 32, timeTookMS, 0, nullptr, nullptr);
+  ps5000aRunBlock(*handle, 1000, 1000, 128, timeTookMS, 0, nullptr, nullptr);
   polltimer->start();
 }
 
 void PicoScope::getStatus() {
-  std::cout << "Status fetching reached" << std::endl;
+  //std::cout << "Status fetching reached" << std::endl;
   *status = ps5000aPingUnit(*handle);
   switch (*status) {
-  case 0:
+  case PICO_OK:
     emit sendStatus("PICO_OK");
+    break;
+  case PICO_BUSY:
+    emit sendStatus("PICO_BUSY");
+    break;
+  case PICO_MEMORY:
+    emit sendStatus("PICO_MEMORY");
     break;
 
   default:
-    emit sendStatus("PICO_NOT_OK");
+    emit sendStatus("PICO_ERROR");
     break;
   }
 }
@@ -58,6 +68,5 @@ void PicoScope::retrieveData() {
   *noOfSamples = 2000;
   ps5000aGetValues(*handle, 0, noOfSamples, 1, PS5000A_RATIO_MODE_NONE, 0,
                    nullptr);
-  emit sendStatus("Measurement data recieved");
   emit sendMeasurement(bufferLength, bufferArray);
 }

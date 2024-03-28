@@ -19,7 +19,7 @@ private:
   int16_t *bufferArray;
   int32_t *bufferLength;
   uint32_t *noOfSamples;
-  QTimer *polltimer;
+  QTimer *polltimer, *statusTimer;
 private slots:
   void retrieveData();
 
