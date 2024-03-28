@@ -1,9 +1,8 @@
-#include "./scopewindow.h"
-#include "./scope.h"
+#include "./hostwindow.h"
 
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
-  ScopeWindow w;
+  HostWindow w;
   w.show();
   return app.exec();
 }

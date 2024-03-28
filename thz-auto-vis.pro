@@ -17,5 +17,5 @@ CONFIG += force_debug_info
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += scopewindow.h scope.h
-SOURCES += scopewindow.cpp main.cpp scope.cpp
+HEADERS += scopewindow.h scope.h hostwindow.h
+SOURCES += scopewindow.cpp main.cpp scope.cpp hostwindow.cpp
