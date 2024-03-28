@@ -16,7 +16,7 @@ PicoScope::PicoScope() : QObject() {
   }
   maxValue = new int16_t;
   ps5000aMaximumValue(*handle, maxValue);
-  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_1V, 0);
+  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_50MV, 0);
   ps5000aSetSimpleTrigger(
       *handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A, *maxValue / 10,
       PS5000A_THRESHOLD_DIRECTION::PS5000A_FALLING, 0, 1000);
@@ -27,7 +27,7 @@ PicoScope::PicoScope() : QObject() {
 }
 
 void PicoScope::measure() {
-  ps5000aRunBlock(*handle, 1000, 1000, 8192, timeTookMS, 0, nullptr, nullptr);
+  ps5000aRunBlock(*handle, 1000, 1000, 128, timeTookMS, 0, nullptr, nullptr);
   polltimer->start();
 }
 
@@ -45,9 +45,9 @@ void PicoScope::getStatus() {
   }
 }
 
-void PicoScope::pollMeasurement(){
-  ps5000aIsReady(*handle,ready);
-  if (*ready != 0){
+void PicoScope::pollMeasurement() {
+  ps5000aIsReady(*handle, ready);
+  if (*ready != 0) {
     polltimer->stop();
     emit finishSignal();
   }
@@ -59,4 +59,5 @@ void PicoScope::retrieveData() {
   ps5000aGetValues(*handle, 0, noOfSamples, 1, PS5000A_RATIO_MODE_NONE, 0,
                    nullptr);
   emit sendStatus("Measurement data recieved");
+  emit sendMeasurement(bufferLength, bufferArray);
 }

@@ -30,6 +30,7 @@ public slots:
 signals:
   void sendStatus(std::string status);
   void finishSignal();
+  void sendMeasurement(int32_t *bufferLength, int16_t *buffer);
 };
 
 #endif // SCOPE_QT
