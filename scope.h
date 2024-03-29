@@ -19,13 +19,14 @@ private:
   int16_t *bufferArray;
   int32_t *bufferLength;
   uint32_t *noOfSamples;
-  QTimer *polltimer, *statusTimer;
+  static void readReady(int16_t handle, PICO_STATUS status,
+                            void *pParameter);
+  QTimer *statusTimer;
 private slots:
   void retrieveData();
 
 public slots:
   void getStatus();
-  void pollMeasurement();
   void measure();
 signals:
   void sendStatus(std::string status);

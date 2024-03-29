@@ -2,16 +2,14 @@
 
 PicoScope::PicoScope() : QObject() {
   statusTimer = new QTimer;
-  statusTimer->setInterval(500);
+  statusTimer->setInterval(100);
   ready = new int16_t;
-  polltimer = new QTimer;
-  polltimer->setInterval(100);
   handle = new int16_t;
   status = new PICO_STATUS;
   timeTookMS = new int32_t;
-  bufferLength = new int32_t(2000);
-  noOfSamples = new uint32_t(2000);
-  bufferArray = new int16_t[2000];
+  bufferLength = new int32_t(2001);
+  noOfSamples = new uint32_t(2001);
+  bufferArray = new int16_t[2001];
   *status = ps5000aOpenUnit(handle, nullptr, PS5000A_DR_12BIT);
   if (*status == PICO_POWER_SUPPLY_NOT_CONNECTED) {
     ps5000aChangePowerSource(*handle, *status);
@@ -24,19 +22,18 @@ PicoScope::PicoScope() : QObject() {
       PS5000A_THRESHOLD_DIRECTION::PS5000A_FALLING, 0, 1000);
   ps5000aSetDataBuffer(*handle, PS5000A_CHANNEL_A, bufferArray, *bufferLength,
                        0, PS5000A_RATIO_MODE_NONE);
-  connect(polltimer, &QTimer::timeout, this, &PicoScope::pollMeasurement);
   connect(this, &PicoScope::finishSignal, this, &PicoScope::retrieveData);
   connect(statusTimer, &QTimer::timeout, this, &PicoScope::getStatus);
   statusTimer->start();
 }
 
 void PicoScope::measure() {
-  ps5000aRunBlock(*handle, 1000, 1000, 128, timeTookMS, 0, nullptr, nullptr);
-  polltimer->start();
+  ps5000aRunBlock(*handle, 1000, 1001, 128, timeTookMS, 0, PicoScope::readReady,
+                  static_cast<void*>(this));
 }
 
 void PicoScope::getStatus() {
-  //std::cout << "Status fetching reached" << std::endl;
+  // std::cout << "Status fetching reached" << std::endl;
   *status = ps5000aPingUnit(*handle);
   switch (*status) {
   case PICO_OK:
@@ -55,18 +52,15 @@ void PicoScope::getStatus() {
   }
 }
 
-void PicoScope::pollMeasurement() {
-  ps5000aIsReady(*handle, ready);
-  if (*ready != 0) {
-    polltimer->stop();
-    emit finishSignal();
-  }
-}
-
 void PicoScope::retrieveData() {
   std::cout << "Retrieving data" << std::endl;
-  *noOfSamples = 2000;
+  *noOfSamples = 2001;
   ps5000aGetValues(*handle, 0, noOfSamples, 1, PS5000A_RATIO_MODE_NONE, 0,
                    nullptr);
   emit sendMeasurement(bufferLength, bufferArray);
+}
+
+void PicoScope::readReady(int16_t handle, PICO_STATUS status,
+                                       void *pParameter) {
+  static_cast<PicoScope*>(pParameter)->finishSignal();
 }

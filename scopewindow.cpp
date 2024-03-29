@@ -12,6 +12,9 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   chartView = new QChartView(chart);
   chartView->setRubberBand(QChartView::RectangleRubberBand);
   chartView->setRenderHint(QPainter::Antialiasing, true);
+  avgLine = new ScopeDataLine("Average: ", 0);
+  ptpLine = new ScopeDataLine("Peak to peak: ", 0);
+
   QVBoxLayout *Llayout = new QVBoxLayout();
   QVBoxLayout *Rlayout = new QVBoxLayout();
   QHBoxLayout *glued = new QHBoxLayout();
@@ -19,6 +22,8 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   Rlayout->addWidget(measurebutton);
   Rlayout->addWidget(button);
   Rlayout->addWidget(status);
+  Rlayout->addWidget(avgLine);
+  Rlayout->addWidget(ptpLine);
   Llayout->addWidget(chartView);
   Rlayout->setAlignment(Qt::AlignmentFlag::AlignTop);
   glued->addLayout(Llayout);
@@ -38,20 +43,26 @@ void ScopeWindow::showStatus(std::string status) {
   this->status->setText(status.c_str());
 }
 
-void ScopeWindow::resetZoom(){
-  chart->zoomReset();
-}
+void ScopeWindow::resetZoom() { chart->zoomReset(); }
 
 void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   std::cout << *bufferSize << " data points recieved for plotting" << std::endl;
+  double sum = 0;
+  int16_t min = 0, max = 0;
   chart->removeAllSeries();
   QLineSeries *line = new QLineSeries;
   for (int32_t i = 0; i < *bufferSize; i++) {
     line->append(i - 1000, buffer[i]);
+    sum += static_cast<double>(buffer[i]);
+    if (buffer[i] > max){ max = buffer[i];}
+    if (buffer[i] < min){ min = buffer[i];}
   }
+  avgLine->newData(sum / static_cast<double>(*bufferSize));
+  ptpLine->newData(static_cast<double>(max - min));
   chart->addSeries(line);
   chart->createDefaultAxes();
   chart->legend()->hide();
   chart->update();
 }
 
+// ########################################################## //

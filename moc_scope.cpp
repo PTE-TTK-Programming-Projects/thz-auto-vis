@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PicoScope_t {
-    QByteArrayData data[15];
-    char stringdata0[155];
+    QByteArrayData data[14];
+    char stringdata0[139];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -45,15 +45,13 @@ QT_MOC_LITERAL(9, 92, 8), // "int16_t*"
 QT_MOC_LITERAL(10, 101, 6), // "buffer"
 QT_MOC_LITERAL(11, 108, 12), // "retrieveData"
 QT_MOC_LITERAL(12, 121, 9), // "getStatus"
-QT_MOC_LITERAL(13, 131, 15), // "pollMeasurement"
-QT_MOC_LITERAL(14, 147, 7) // "measure"
+QT_MOC_LITERAL(13, 131, 7) // "measure"
 
     },
     "PicoScope\0sendStatus\0\0std::string\0"
     "status\0finishSignal\0sendMeasurement\0"
     "int32_t*\0bufferLength\0int16_t*\0buffer\0"
-    "retrieveData\0getStatus\0pollMeasurement\0"
-    "measure"
+    "retrieveData\0getStatus\0measure"
 };
 #undef QT_MOC_LITERAL
 
@@ -63,7 +61,7 @@ static const uint qt_meta_data_PicoScope[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -71,15 +69,14 @@ static const uint qt_meta_data_PicoScope[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       5,    0,   52,    2, 0x06 /* Public */,
-       6,    2,   53,    2, 0x06 /* Public */,
+       1,    1,   44,    2, 0x06 /* Public */,
+       5,    0,   47,    2, 0x06 /* Public */,
+       6,    2,   48,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    0,   58,    2, 0x08 /* Private */,
-      12,    0,   59,    2, 0x0a /* Public */,
-      13,    0,   60,    2, 0x0a /* Public */,
-      14,    0,   61,    2, 0x0a /* Public */,
+      11,    0,   53,    2, 0x08 /* Private */,
+      12,    0,   54,    2, 0x0a /* Public */,
+      13,    0,   55,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -87,7 +84,6 @@ static const uint qt_meta_data_PicoScope[] = {
     QMetaType::Void, 0x80000000 | 7, 0x80000000 | 9,    8,   10,
 
  // slots: parameters
-    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -106,8 +102,7 @@ void PicoScope::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 2: _t->sendMeasurement((*reinterpret_cast< int32_t*(*)>(_a[1])),(*reinterpret_cast< int16_t*(*)>(_a[2]))); break;
         case 3: _t->retrieveData(); break;
         case 4: _t->getStatus(); break;
-        case 5: _t->pollMeasurement(); break;
-        case 6: _t->measure(); break;
+        case 5: _t->measure(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -165,13 +160,13 @@ int PicoScope::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 6)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 6;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 6)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 6;
     }
     return _id;
 }
