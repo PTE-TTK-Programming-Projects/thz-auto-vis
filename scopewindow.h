@@ -7,7 +7,7 @@
 #include <QtWidgets>
 #include <string>
 
-class ScopeWindow : public QWidget {
+class ScopeWindow : public QFrame {
   Q_OBJECT;
 
 public:

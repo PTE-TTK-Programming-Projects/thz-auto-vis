@@ -1,6 +1,6 @@
 #include "./scopewindow.h"
 
-ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
+ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   button = new QPushButton("Status");
   measurebutton = new QPushButton("Capture Single");
   liveButton = new QPushButton("Live view");
@@ -41,6 +41,10 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
           &ScopeWindow::showMeasurementData);
   connect(homeButton, &QPushButton::clicked, this, &ScopeWindow::resetZoom);
   connect(liveButton, &QPushButton::toggled, this, &ScopeWindow::liveRequest);
+  setFrameShape(QFrame::StyledPanel);
+  setFrameShadow(QFrame::Raised);
+  setLineWidth(3);
+  setMidLineWidth(3);
 }
 
 void ScopeWindow::showStatus(std::string status) {
