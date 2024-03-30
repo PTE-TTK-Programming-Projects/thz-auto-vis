@@ -56,7 +56,7 @@ void ScopeWindow::resetZoom() { chart->zoomReset(); }
 void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   std::cout << *bufferSize << " data points recieved for plotting" << std::endl;
   double sum = 0;
-  int16_t min = 0, max = 0;
+  int16_t min = buffer[0], max = buffer[0];
   chart->removeAllSeries();
   QLineSeries *line = new QLineSeries;
   for (int32_t i = 0; i < *bufferSize; i++) {
