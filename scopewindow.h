@@ -16,9 +16,13 @@ private slots:
   void showStatus(std::string status);
   void showMeasurementData(int32_t *bufferSize, int16_t *buffer);
   void resetZoom();
+  void liveRequest(bool isLive);
+
+  signals:
+  void chartingFinished();
 
 private:
-  QPushButton *button, *measurebutton, *homeButton;
+  QPushButton *button, *measurebutton, *liveButton, *homeButton;
   QLineEdit *status;
   PicoScope *scope;
   QChartView *chartView;

@@ -2,7 +2,9 @@
 
 ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   button = new QPushButton("Status");
-  measurebutton = new QPushButton("Measure");
+  measurebutton = new QPushButton("Capture Single");
+  liveButton = new QPushButton("Live view");
+  liveButton->setCheckable(true);
   homeButton = new QPushButton("Reset Zoom");
   status = new QLineEdit("");
   status->setReadOnly(true);
@@ -20,6 +22,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   QHBoxLayout *glued = new QHBoxLayout();
   Rlayout->addWidget(homeButton);
   Rlayout->addWidget(measurebutton);
+  Rlayout->addWidget(liveButton);
   Rlayout->addWidget(button);
   Rlayout->addWidget(status);
   Rlayout->addWidget(avgLine);
@@ -37,6 +40,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QWidget(parent) {
   connect(scope, &PicoScope::sendMeasurement, this,
           &ScopeWindow::showMeasurementData);
   connect(homeButton, &QPushButton::clicked, this, &ScopeWindow::resetZoom);
+  connect(liveButton, &QPushButton::toggled, this, &ScopeWindow::liveRequest);
 }
 
 void ScopeWindow::showStatus(std::string status) {
@@ -54,8 +58,12 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   for (int32_t i = 0; i < *bufferSize; i++) {
     line->append(i - 1000, buffer[i]);
     sum += static_cast<double>(buffer[i]);
-    if (buffer[i] > max){ max = buffer[i];}
-    if (buffer[i] < min){ min = buffer[i];}
+    if (buffer[i] > max) {
+      max = buffer[i];
+    }
+    if (buffer[i] < min) {
+      min = buffer[i];
+    }
   }
   avgLine->newData(sum / static_cast<double>(*bufferSize));
   ptpLine->newData(static_cast<double>(max - min));
@@ -63,6 +71,17 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   chart->createDefaultAxes();
   chart->legend()->hide();
   chart->update();
+  emit chartingFinished();
 }
 
-// ########################################################## //
+void ScopeWindow::liveRequest(bool isLive) {
+  if (isLive) {
+    measurebutton->setDisabled(true);
+    connect(this, &ScopeWindow::chartingFinished, scope, &PicoScope::measure);
+    scope->measure();
+  } else {
+    measurebutton->setDisabled(false);
+    disconnect(this, &ScopeWindow::chartingFinished, scope,
+               &PicoScope::measure);
+  }
+}
