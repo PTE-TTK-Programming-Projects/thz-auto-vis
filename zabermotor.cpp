@@ -25,8 +25,18 @@ void ZaberDevice::startSerialTimer() {
 
 void ZaberDevice::readSerial() {
   *buffer += this->readAll().toStdString();
-  if (buffer->find("\r\n")) {
+  if (buffer->end()[0] == '\n') {
     readTimer->stop();
     emit motorSent(buffer);
+    if (buffer->find("READY")) {
+      emit motorReady();
+    } else if (buffer->find("BUSY")) {
+      emit motorBusy();
+    }
   }
+}
+
+void ZaberDevice::sendToMotor(std::string message) {
+  this->waitForBytesWritten();
+  this->write(message.c_str());
 }

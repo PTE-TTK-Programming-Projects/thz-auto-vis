@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = thz-auto-vis
 INCLUDEPATH += . /opt/picoscope/include
-QT += widgets charts
+QT += widgets charts serialport
 LIBS += -L/opt/picoscope/lib -lps5000a -lps5000aWrap
 CONFIG += force_debug_info
 
@@ -17,5 +17,5 @@ CONFIG += force_debug_info
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 # Input
-HEADERS += scopewindow.h scope.h hostwindow.h scope_data_line.h
-SOURCES += scopewindow.cpp main.cpp scope.cpp hostwindow.cpp scope_data_line.cpp
+HEADERS += scopewindow.h scope.h hostwindow.h scope_data_line.h zabermotor.h zaberwindow.h
+SOURCES += scopewindow.cpp main.cpp scope.cpp hostwindow.cpp scope_data_line.cpp zabermotor.cpp zaberwindow.cpp

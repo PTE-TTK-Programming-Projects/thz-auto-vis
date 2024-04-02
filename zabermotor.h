@@ -19,6 +19,7 @@ private slots:
   void readSerial();
 public slots:
   void connectName(std::string portName);
+  void sendToMotor(std::string message);
 signals:
   void motorReady();
   void motorBusy();
