@@ -1,5 +1,6 @@
 #pragma once
 
+#include <iostream>
 #include <QSerialPort>
 #include <QtWidgets>
 #include <string>

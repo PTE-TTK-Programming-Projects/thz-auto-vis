@@ -14,9 +14,11 @@ private:
   ZaberDevice *motor;
   QPushButton *connectButton;
   QComboBox *selectBox;
+  QListWidget *messageScrollback;
   void refreshComboBox();
   private slots:
   void selectPort();
+  void motorMsg(std::string *message);
 
 signals:
   void connectToPort(std::string portName);

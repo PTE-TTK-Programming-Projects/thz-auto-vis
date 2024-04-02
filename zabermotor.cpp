@@ -8,6 +8,7 @@ ZaberDevice::ZaberDevice() : QSerialPort() {
   this->setFlowControl(QSerialPort::NoFlowControl);
   this->setStopBits(QSerialPort::OneStop);
   this->setBaudRate(QSerialPort::Baud115200);
+  this->setDataBits(QSerialPort::Data8);
   connect(readTimer, &QTimer::timeout, this, &ZaberDevice::readSerial);
   connect(this, &ZaberDevice::readyRead, this, &ZaberDevice::startSerialTimer);
 }
@@ -16,6 +17,7 @@ void ZaberDevice::connectName(std::string portName) {
   this->close();
   this->setPortName(portName.c_str());
   this->open(QSerialPort::ReadWrite);
+  this->sendToMotor("/get device.id");
 }
 
 void ZaberDevice::startSerialTimer() {
@@ -25,10 +27,10 @@ void ZaberDevice::startSerialTimer() {
 
 void ZaberDevice::readSerial() {
   *buffer += this->readAll().toStdString();
-  if (buffer->end()[0] == '\n') {
+  if (*buffer->end() == 10 || *buffer->end() == 0) {
     readTimer->stop();
     emit motorSent(buffer);
-    if (buffer->find("READY")) {
+    if (buffer->find("IDLE")) {
       emit motorReady();
     } else if (buffer->find("BUSY")) {
       emit motorBusy();
@@ -38,5 +40,5 @@ void ZaberDevice::readSerial() {
 
 void ZaberDevice::sendToMotor(std::string message) {
   this->waitForBytesWritten();
-  this->write(message.c_str());
+  this->write((message + "\r\n").c_str());
 }
