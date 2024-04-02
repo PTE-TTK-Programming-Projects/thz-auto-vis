@@ -14,17 +14,19 @@ public:
 private:
   ZaberDevice *motor;
   QPushButton *connectButton, *homeButton, *moveButton;
-  QComboBox *selectBox;
-  QLineEdit *manualMsg;
+  QComboBox *selectBox, *unitbox;
+  QLineEdit *manualMsg, *movePos;
   QListWidget *messageScrollback;
   void refreshComboBox();
-  double *microstepSize, *maxDistance;
+  double *microstepSize, *maxDistance, *unitMultiplier;
   private slots:
   void selectPort();
   void motorMsg(std::string *message);
   void motorID(int ID);
   void prepManMsg();
   void buttonHome();
+  void moveToPos();
+  void unitSelChd(QString unit);
 
 signals:
   void connectToPort(std::string portName);
