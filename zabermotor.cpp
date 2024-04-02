@@ -35,6 +35,10 @@ void ZaberDevice::readSerial() {
     } else if (buffer->find("BUSY")) {
       emit motorBusy();
     }
+
+    if (buffer->find("50105")) {
+      emit motorIDed(50105);
+    }
   }
 }
 

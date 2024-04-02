@@ -25,4 +25,5 @@ signals:
   void motorReady();
   void motorBusy();
   void motorSent(std::string *msg);
+  void motorIDed(int ID);
 };
