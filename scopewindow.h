@@ -18,10 +18,14 @@ private slots:
   void resetZoom();
   void liveRequest(bool isLive);
   void sendSetup();
+  void sendTime();
+  void sendRatio();
 
   signals:
   void chartingFinished();
   void setScopeChannel(int couplingIDX, int sensIDX);
+  void setTriggerThreshold(int16_t divisor);
+  void setTimeBase(uint32_t timeBase);
 
 private:
   QPushButton *button, *measurebutton, *liveButton, *homeButton;
@@ -31,6 +35,7 @@ private:
   QChart *chart;
   ScopeDataLine *avgLine, *ptpLine;
   QComboBox *coupling, *sens;
+  QComboBox *windowLength, *triggerRatio;
 };
 
 

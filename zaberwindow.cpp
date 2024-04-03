@@ -44,6 +44,7 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   setLineWidth(3);
   setMidLineWidth(3);
   selectBox->setMinimumWidth(150);
+  selectBox->setMaximumWidth(150);
   connect(connectButton, &QPushButton::clicked, this, &ZaberWindow::selectPort);
   connect(this, &ZaberWindow::connectToPort, motor, &ZaberDevice::connectName);
   connect(motor, &ZaberDevice::motorSent, this, &ZaberWindow::motorMsg);

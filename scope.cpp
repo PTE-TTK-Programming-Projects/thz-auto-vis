@@ -1,9 +1,11 @@
 #include "./scope.h"
 
 PicoScope::PicoScope() : QObject() {
+  timeBase = new uint32_t(34);
   statusTimer = new QTimer;
   statusTimer->setInterval(100);
   ready = new int16_t;
+  divisor = new int16_t(100);
   handle = new int16_t;
   status = new PICO_STATUS;
   timeTookMS = new int32_t;
@@ -16,9 +18,9 @@ PicoScope::PicoScope() : QObject() {
   }
   maxValue = new int16_t;
   ps5000aMaximumValue(*handle, maxValue);
-  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_10MV, 0);
+  ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1, PS5000A_AC, PS5000A_5V, 0);
   ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A,
-                          *maxValue / 10,
+                          *maxValue / *divisor,
                           PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0, 1000);
   ps5000aSetDataBuffer(*handle, PS5000A_CHANNEL_A, bufferArray, *bufferLength,
                        0, PS5000A_RATIO_MODE_NONE);
@@ -28,8 +30,8 @@ PicoScope::PicoScope() : QObject() {
 }
 
 void PicoScope::measure() {
-  ps5000aRunBlock(*handle, 1000, 1001, 16, timeTookMS, 0, PicoScope::readReady,
-                  static_cast<void *>(this));
+  ps5000aRunBlock(*handle, 1000, 1001, *timeBase, timeTookMS, 0,
+                  PicoScope::readReady, static_cast<void *>(this));
 }
 
 void PicoScope::getStatus() {
@@ -93,10 +95,27 @@ void PicoScope::setScopeChannel(int couplingIDX, int sensIDX) {
   case 3:
     sensEnum = PS5000A_500MV;
     break;
-  default:
+  case 4:
+    sensEnum = PS5000A_1V;
+    break;
+  case 5:
+    sensEnum = PS5000A_2V;
+    break;
+  case 6:
     sensEnum = PS5000A_5V;
+    break;
+  default:
+    sensEnum = PS5000A_20V;
     break;
   }
   ps5000aSetChannel(*handle, PS5000A_CHANNEL_A, 1,
                     (PS5000A_COUPLING)couplingEnum, (PS5000A_RANGE)sensEnum, 0);
+}
+
+void PicoScope::setTimeWindow(uint32_t timeBase) { *this->timeBase = timeBase; }
+void PicoScope::setTriggerRatio(int16_t divisor) {
+  *this->divisor = divisor;
+  ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A,
+                          *maxValue / *this->divisor,
+                          PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0, 1000);
 }

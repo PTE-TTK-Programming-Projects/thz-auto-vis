@@ -14,7 +14,8 @@ public:
 private:
   int16_t *handle;
   PICO_STATUS *status;
-  int16_t *maxValue, *ready;
+  int16_t *maxValue, *ready, *divisor;
+  uint32_t *timeBase;
   int32_t *timeTookMS;
   int16_t *bufferArray;
   int32_t *bufferLength;
@@ -29,6 +30,8 @@ public slots:
   void getStatus();
   void measure();
   void setScopeChannel(int couplingIDX, int sensIDX);
+  void setTimeWindow(uint32_t timeBase);
+  void setTriggerRatio(int16_t divisor);
 signals:
   void sendStatus(std::string status);
   void finishSignal();

@@ -9,6 +9,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   status = new QLineEdit("");
   status->setReadOnly(true);
   status->setMinimumWidth(200);
+  status->setMaximumWidth(200);
   scope = new PicoScope();
   chart = new QChart();
   chartView = new QChartView(chart);
@@ -19,18 +20,28 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   coupling = new QComboBox();
   coupling->addItems(QStringList(QList<QString>({"AC", "DC"})));
   sens = new QComboBox();
-  sens->addItems(
-      QStringList(QList<QString>({"10 mV", "50 mV", "100 mV", "500 mV"})));
+  sens->addItems(QStringList(QList<QString>(
+      {"10 mV", "50 mV", "100 mV", "500 mV", "1 V", "2 V", "5 V"})));
+  sens->setCurrentIndex(6);
+  windowLength = new QComboBox();
+  windowLength->addItems(
+      QStringList(QList<QString>({"1 ms", "5 ms", "10 ms"})));
+  triggerRatio = new QComboBox();
+  triggerRatio->addItems(QStringList(QList<QString>({"1%", "5%", "10%"})));
   QVBoxLayout *Llayout = new QVBoxLayout();
   QVBoxLayout *Rlayout = new QVBoxLayout();
   QHBoxLayout *setupBox = new QHBoxLayout();
+  QHBoxLayout *setupBox2 = new QHBoxLayout();
   QHBoxLayout *glued = new QHBoxLayout();
   Rlayout->addWidget(homeButton);
   Rlayout->addWidget(measurebutton);
   Rlayout->addWidget(liveButton);
   setupBox->addWidget(coupling);
   setupBox->addWidget(sens);
+  setupBox2->addWidget(windowLength);
+  setupBox2->addWidget(triggerRatio);
   Rlayout->addLayout(setupBox);
+  Rlayout->addLayout(setupBox2);
   Rlayout->addWidget(button);
   Rlayout->addWidget(status);
   Rlayout->addWidget(avgLine);
@@ -56,6 +67,13 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
           &ScopeWindow::sendSetup);
   connect(this, &ScopeWindow::setScopeChannel, scope,
           &PicoScope::setScopeChannel);
+  connect(windowLength, QOverload<int>::of(&QComboBox::currentIndexChanged),
+          this, &ScopeWindow::sendTime);
+  connect(triggerRatio, QOverload<int>::of(&QComboBox::currentIndexChanged),
+          this, &ScopeWindow::sendRatio);
+  connect(this, &ScopeWindow::setTriggerThreshold, scope,
+          &PicoScope::setTriggerRatio);
+  connect(this, &ScopeWindow::setTimeBase, scope, &PicoScope::setTimeWindow);
   setFrameShape(QFrame::StyledPanel);
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);
@@ -108,4 +126,30 @@ void ScopeWindow::liveRequest(bool isLive) {
 
 void ScopeWindow::sendSetup() {
   emit setScopeChannel(coupling->currentIndex(), sens->currentIndex());
+}
+
+void ScopeWindow::sendTime() {
+  switch (windowLength->currentIndex()) {
+  case 0:
+    emit setTimeBase(34);
+    break;
+  case 1:
+    emit setTimeBase(159);
+    break;
+  case 2:
+    emit setTimeBase(315);
+  }
+}
+
+void ScopeWindow::sendRatio() {
+  switch (triggerRatio->currentIndex()) {
+  case 0:
+    emit setTriggerThreshold(100);
+    break;
+  case 1:
+    emit setTriggerThreshold(20);
+    break;
+  case 2:
+    emit setTriggerThreshold(10);
+  }
 }

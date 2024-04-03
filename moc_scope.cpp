@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_PicoScope_t {
-    QByteArrayData data[17];
-    char stringdata0[175];
+    QByteArrayData data[23];
+    char stringdata0[239];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,14 +48,22 @@ QT_MOC_LITERAL(12, 121, 9), // "getStatus"
 QT_MOC_LITERAL(13, 131, 7), // "measure"
 QT_MOC_LITERAL(14, 139, 15), // "setScopeChannel"
 QT_MOC_LITERAL(15, 155, 11), // "couplingIDX"
-QT_MOC_LITERAL(16, 167, 7) // "sensIDX"
+QT_MOC_LITERAL(16, 167, 7), // "sensIDX"
+QT_MOC_LITERAL(17, 175, 13), // "setTimeWindow"
+QT_MOC_LITERAL(18, 189, 8), // "uint32_t"
+QT_MOC_LITERAL(19, 198, 8), // "timeBase"
+QT_MOC_LITERAL(20, 207, 15), // "setTriggerRatio"
+QT_MOC_LITERAL(21, 223, 7), // "int16_t"
+QT_MOC_LITERAL(22, 231, 7) // "divisor"
 
     },
     "PicoScope\0sendStatus\0\0std::string\0"
     "status\0finishSignal\0sendMeasurement\0"
     "int32_t*\0bufferLength\0int16_t*\0buffer\0"
     "retrieveData\0getStatus\0measure\0"
-    "setScopeChannel\0couplingIDX\0sensIDX"
+    "setScopeChannel\0couplingIDX\0sensIDX\0"
+    "setTimeWindow\0uint32_t\0timeBase\0"
+    "setTriggerRatio\0int16_t\0divisor"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,7 +73,7 @@ static const uint qt_meta_data_PicoScope[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -73,15 +81,17 @@ static const uint qt_meta_data_PicoScope[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   49,    2, 0x06 /* Public */,
-       5,    0,   52,    2, 0x06 /* Public */,
-       6,    2,   53,    2, 0x06 /* Public */,
+       1,    1,   59,    2, 0x06 /* Public */,
+       5,    0,   62,    2, 0x06 /* Public */,
+       6,    2,   63,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      11,    0,   58,    2, 0x08 /* Private */,
-      12,    0,   59,    2, 0x0a /* Public */,
-      13,    0,   60,    2, 0x0a /* Public */,
-      14,    2,   61,    2, 0x0a /* Public */,
+      11,    0,   68,    2, 0x08 /* Private */,
+      12,    0,   69,    2, 0x0a /* Public */,
+      13,    0,   70,    2, 0x0a /* Public */,
+      14,    2,   71,    2, 0x0a /* Public */,
+      17,    1,   76,    2, 0x0a /* Public */,
+      20,    1,   79,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -93,6 +103,8 @@ static const uint qt_meta_data_PicoScope[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int, QMetaType::Int,   15,   16,
+    QMetaType::Void, 0x80000000 | 18,   19,
+    QMetaType::Void, 0x80000000 | 21,   22,
 
        0        // eod
 };
@@ -110,6 +122,8 @@ void PicoScope::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, v
         case 4: _t->getStatus(); break;
         case 5: _t->measure(); break;
         case 6: _t->setScopeChannel((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 7: _t->setTimeWindow((*reinterpret_cast< uint32_t(*)>(_a[1]))); break;
+        case 8: _t->setTriggerRatio((*reinterpret_cast< int16_t(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -167,13 +181,13 @@ int PicoScope::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 7)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 7;
+        _id -= 9;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 7)
+        if (_id < 9)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
 }
