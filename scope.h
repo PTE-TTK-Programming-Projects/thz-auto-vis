@@ -2,7 +2,7 @@
 #define SCOPE_QT
 #include <QtWidgets>
 #include <iostream>
-#include <ps5000aWrap.h>
+#include <ps5000aApi.h>
 #include <string>
 
 class PicoScope : public QObject {

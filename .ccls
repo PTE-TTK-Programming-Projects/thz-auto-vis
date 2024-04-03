@@ -4,3 +4,4 @@ g++
 -I/usr/include/qt/QtSerialPort
 -I/usr/include/qt/QtCharts
 -I/opt/picoscope/include
+-I/opt/picoscope/include/libps5000a

@@ -17,7 +17,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_CHARTS_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -g -flto -fno-fat-lto-objects -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -g -flto -fno-fat-lto-objects -Wall -Wextra -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
+INCPATH       = -I. -I. -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I. -I/usr/lib/qt/mkspecs/linux-g++
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -40,7 +40,7 @@ DISTNAME      = thz-auto-vis1.0.0
 DISTDIR = /home/illesg/GitHub/thz-auto-vis/.tmp/thz-auto-vis1.0.0
 LINK          = g++
 LFLAGS        = -pipe -O2 -g -flto=4 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
-LIBS          = $(SUBLIBS) -L/opt/picoscope/lib -lps5000a -lps5000aWrap /usr/lib/libQt5Charts.so /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5SerialPort.so /usr/lib/libQt5Core.so -lGL -lpthread   
+LIBS          = $(SUBLIBS) -L/opt/picoscope/lib -lps5000a /usr/lib/libQt5Charts.so /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5SerialPort.so /usr/lib/libQt5Core.so -lGL -lpthread   
 AR            = gcc-ar cqs
 RANLIB        = 
 SED           = sed
@@ -1090,70 +1090,67 @@ compiler_moc_header_clean:
 moc_scopewindow.cpp: scopewindow.h \
 		scope_data_line.h \
 		scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
 
 moc_scope.cpp: scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope.h -o moc_scope.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope.h -o moc_scope.cpp
 
 moc_hostwindow.cpp: hostwindow.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
 		zabermotor.h \
 		meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
 
 moc_scope_data_line.cpp: scope_data_line.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope_data_line.h -o moc_scope_data_line.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope_data_line.h -o moc_scope_data_line.cpp
 
 moc_zabermotor.cpp: zabermotor.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zabermotor.h -o moc_zabermotor.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zabermotor.h -o moc_zabermotor.cpp
 
 moc_zaberwindow.cpp: zaberwindow.h \
 		zabermotor.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
 
 moc_meascontrolwidget.cpp: meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1174,56 +1171,52 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 scopewindow.o: scopewindow.cpp scopewindow.h \
 		scope_data_line.h \
 		scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scopewindow.o scopewindow.cpp
 
 main.o: main.cpp hostwindow.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
 		zabermotor.h \
 		meascontrolwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 scope.o: scope.cpp scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scope.o scope.cpp
 
 hostwindow.o: hostwindow.cpp hostwindow.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
-		/opt/picoscope/include/ps5000aWrap.h \
-		/opt/picoscope/include/libps5000a-1.1/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoStatus.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoVersion.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoCallback.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
 		zabermotor.h \
 		meascontrolwidget.h

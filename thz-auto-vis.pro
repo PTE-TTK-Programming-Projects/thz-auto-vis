@@ -4,9 +4,9 @@
 
 TEMPLATE = app
 TARGET = thz-auto-vis
-INCLUDEPATH += . /opt/picoscope/include
+INCLUDEPATH += . /opt/picoscope/include/libps5000a
 QT += widgets charts serialport
-LIBS += -L/opt/picoscope/lib -lps5000a -lps5000aWrap
+LIBS += -L/opt/picoscope/lib -lps5000a 
 CONFIG += force_debug_info
 
 # You can make your code fail to compile if you use deprecated APIs.
