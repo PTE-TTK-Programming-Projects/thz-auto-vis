@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_ZaberWindow_t {
-    QByteArrayData data[22];
-    char stringdata0[217];
+    QByteArrayData data[24];
+    char stringdata0[231];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -53,7 +53,9 @@ QT_MOC_LITERAL(17, 163, 9), // "moveToPos"
 QT_MOC_LITERAL(18, 173, 10), // "unitSelChd"
 QT_MOC_LITERAL(19, 184, 4), // "unit"
 QT_MOC_LITERAL(20, 189, 8), // "unitSend"
-QT_MOC_LITERAL(21, 198, 18) // "externalUnitChange"
+QT_MOC_LITERAL(21, 198, 6), // "stpFWD"
+QT_MOC_LITERAL(22, 205, 6), // "stpBWD"
+QT_MOC_LITERAL(23, 212, 18) // "externalUnitChange"
 
     },
     "ZaberWindow\0connectToPort\0\0std::string\0"
@@ -61,7 +63,8 @@ QT_MOC_LITERAL(21, 198, 18) // "externalUnitChange"
     "sendUnitIndex\0index\0selectPort\0motorMsg\0"
     "std::string*\0message\0motorID\0ID\0"
     "prepManMsg\0buttonHome\0moveToPos\0"
-    "unitSelChd\0unit\0unitSend\0externalUnitChange"
+    "unitSelChd\0unit\0unitSend\0stpFWD\0stpBWD\0"
+    "externalUnitChange"
 };
 #undef QT_MOC_LITERAL
 
@@ -71,7 +74,7 @@ static const uint qt_meta_data_ZaberWindow[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      12,   14, // methods
+      14,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -79,20 +82,22 @@ static const uint qt_meta_data_ZaberWindow[] = {
        3,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,   74,    2, 0x06 /* Public */,
-       5,    1,   77,    2, 0x06 /* Public */,
-       7,    1,   80,    2, 0x06 /* Public */,
+       1,    1,   84,    2, 0x06 /* Public */,
+       5,    1,   87,    2, 0x06 /* Public */,
+       7,    1,   90,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       9,    0,   83,    2, 0x08 /* Private */,
-      10,    1,   84,    2, 0x08 /* Private */,
-      13,    1,   87,    2, 0x08 /* Private */,
-      15,    0,   90,    2, 0x08 /* Private */,
-      16,    0,   91,    2, 0x08 /* Private */,
-      17,    0,   92,    2, 0x08 /* Private */,
-      18,    1,   93,    2, 0x08 /* Private */,
-      20,    1,   96,    2, 0x08 /* Private */,
-      21,    1,   99,    2, 0x0a /* Public */,
+       9,    0,   93,    2, 0x08 /* Private */,
+      10,    1,   94,    2, 0x08 /* Private */,
+      13,    1,   97,    2, 0x08 /* Private */,
+      15,    0,  100,    2, 0x08 /* Private */,
+      16,    0,  101,    2, 0x08 /* Private */,
+      17,    0,  102,    2, 0x08 /* Private */,
+      18,    1,  103,    2, 0x08 /* Private */,
+      20,    1,  106,    2, 0x08 /* Private */,
+      21,    0,  109,    2, 0x08 /* Private */,
+      22,    0,  110,    2, 0x08 /* Private */,
+      23,    1,  111,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3,    4,
@@ -108,6 +113,8 @@ static const uint qt_meta_data_ZaberWindow[] = {
     QMetaType::Void,
     QMetaType::Void, QMetaType::QString,   19,
     QMetaType::Void, QMetaType::Int,    8,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    8,
 
        0        // eod
@@ -130,7 +137,9 @@ void ZaberWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
         case 8: _t->moveToPos(); break;
         case 9: _t->unitSelChd((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 10: _t->unitSend((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 11: _t->externalUnitChange((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 11: _t->stpFWD(); break;
+        case 12: _t->stpBWD(); break;
+        case 13: _t->externalUnitChange((*reinterpret_cast< int(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -188,13 +197,13 @@ int ZaberWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 12)
+        if (_id < 14)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 12;
+        _id -= 14;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 12)
+        if (_id < 14)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 12;
+        _id -= 14;
     }
     return _id;
 }

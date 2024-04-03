@@ -9,26 +9,29 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   unitbox = new QComboBox;
   unitbox->addItems(
       QStringList(QList<QString>({QString("mm"), QString("um")})));
-  movePos = new QLineEdit();
-  moveButton->setDisabled(true);
+  movePos = new QLineEdit("0");
   homeButton = new QPushButton("Home motor");
-  homeButton->setDisabled(true);
   manualMsg = new QLineEdit();
-  manualMsg->setDisabled(true);
   messageScrollback = new QListWidget();
   microstepSize = new double(1);
   maxDistance = new double(1);
-  movePos->setDisabled(true);
-  unitbox->setDisabled(true);
   refreshComboBox();
+  stepForward = new QPushButton("+");
+  stepBackward = new QPushButton("-");
+  stepByValue = new QLineEdit("0");
   QVBoxLayout *layout = new QVBoxLayout();
   QHBoxLayout *movebox = new QHBoxLayout();
+  QHBoxLayout *stepBox = new QHBoxLayout();
+  stepBox->addWidget(stepBackward);
+  stepBox->addWidget(stepByValue);
+  stepBox->addWidget(stepForward);
   movebox->addWidget(movePos);
   movebox->addWidget(unitbox);
   layout->addWidget(selectBox);
   layout->addWidget(connectButton);
   layout->addLayout(movebox);
   layout->addWidget(moveButton);
+  layout->addLayout(stepBox);
   layout->addWidget(manualMsg);
   layout->addWidget(homeButton);
   layout->addWidget(messageScrollback);
@@ -53,6 +56,8 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
           &ZaberWindow::unitSelChd);
   connect(unitbox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
           &ZaberWindow::unitSend);
+  connect(stepForward, &QPushButton::clicked, this, &ZaberWindow::stpFWD);
+  connect(stepBackward, &QPushButton::clicked, this, &ZaberWindow::stpBWD);
 }
 
 void ZaberWindow::refreshComboBox() {
@@ -77,11 +82,6 @@ void ZaberWindow::motorMsg(std::string *message) {
 void ZaberWindow::motorID(int ID) {
   switch (ID) {
   case 50105:
-    manualMsg->setDisabled(false);
-    homeButton->setDisabled(false);
-    unitbox->setDisabled(false);
-    movePos->setDisabled(false);
-    moveButton->setDisabled(false);
     *microstepSize = 0.09921875e-6;
     *maxDistance = 150e-3;
     break;
@@ -118,6 +118,20 @@ void ZaberWindow::externalUnitChange(int index) {
   unitbox->setCurrentIndex(index);
 }
 
-void ZaberWindow::unitSend(int index) {
-  emit sendUnitIndex(index);
+void ZaberWindow::unitSend(int index) { emit sendUnitIndex(index); }
+
+void ZaberWindow::stpFWD() {
+  int microstep;
+  double selectedPos =
+      stepByValue->text().toDouble() * (*unitMultiplier) / (*microstepSize);
+  microstep = static_cast<int>(round(selectedPos));
+  emit sendManualMsg("/move rel +" + std::to_string(microstep));
+}
+
+void ZaberWindow::stpBWD() {
+  int microstep;
+  double selectedPos =
+      stepByValue->text().toDouble() * (*unitMultiplier) / (*microstepSize);
+  microstep = static_cast<int>(round(selectedPos));
+  emit sendManualMsg("/move rel -" + std::to_string(microstep));
 }

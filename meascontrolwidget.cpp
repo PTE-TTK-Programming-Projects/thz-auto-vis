@@ -1,4 +1,4 @@
-#include "./meascontrolwidget.h";
+#include "./meascontrolwidget.h"
 
 MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   initDefaultValues();
@@ -28,6 +28,6 @@ void MeasureControlWindow::sendCurrentIndex(int index) {
   emit unitSelectorIndex(index);
 }
 
-void MeasureControlWindow::recUnitIndex(int index){
+void MeasureControlWindow::recUnitIndex(int index) {
   unitSelector->setCurrentIndex(index);
 }

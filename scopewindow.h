@@ -17,9 +17,11 @@ private slots:
   void showMeasurementData(int32_t *bufferSize, int16_t *buffer);
   void resetZoom();
   void liveRequest(bool isLive);
+  void sendSetup();
 
   signals:
   void chartingFinished();
+  void setScopeChannel(int couplingIDX, int sensIDX);
 
 private:
   QPushButton *button, *measurebutton, *liveButton, *homeButton;
@@ -28,6 +30,7 @@ private:
   QChartView *chartView;
   QChart *chart;
   ScopeDataLine *avgLine, *ptpLine;
+  QComboBox *coupling, *sens;
 };
 
 

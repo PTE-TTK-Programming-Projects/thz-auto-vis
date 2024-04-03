@@ -16,13 +16,21 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   chartView->setRenderHint(QPainter::Antialiasing, true);
   avgLine = new ScopeDataLine("Average: ", 0);
   ptpLine = new ScopeDataLine("Peak to peak: ", 0);
-
+  coupling = new QComboBox();
+  coupling->addItems(QStringList(QList<QString>({"AC", "DC"})));
+  sens = new QComboBox();
+  sens->addItems(
+      QStringList(QList<QString>({"10 mV", "50 mV", "100 mV", "500 mV"})));
   QVBoxLayout *Llayout = new QVBoxLayout();
   QVBoxLayout *Rlayout = new QVBoxLayout();
+  QHBoxLayout *setupBox = new QHBoxLayout();
   QHBoxLayout *glued = new QHBoxLayout();
   Rlayout->addWidget(homeButton);
   Rlayout->addWidget(measurebutton);
   Rlayout->addWidget(liveButton);
+  setupBox->addWidget(coupling);
+  setupBox->addWidget(sens);
+  Rlayout->addLayout(setupBox);
   Rlayout->addWidget(button);
   Rlayout->addWidget(status);
   Rlayout->addWidget(avgLine);
@@ -42,6 +50,12 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
           &ScopeWindow::showMeasurementData);
   connect(homeButton, &QPushButton::clicked, this, &ScopeWindow::resetZoom);
   connect(liveButton, &QPushButton::toggled, this, &ScopeWindow::liveRequest);
+  connect(coupling, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &ScopeWindow::sendSetup);
+  connect(sens, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &ScopeWindow::sendSetup);
+  connect(this, &ScopeWindow::setScopeChannel, scope,
+          &PicoScope::setScopeChannel);
   setFrameShape(QFrame::StyledPanel);
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);
@@ -55,7 +69,8 @@ void ScopeWindow::showStatus(std::string status) {
 void ScopeWindow::resetZoom() { chart->zoomReset(); }
 
 void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
-  std::cout << *bufferSize << " data points recieved for plotting" << std::endl;
+  // std::cout << *bufferSize << " data points recieved for plotting" <<
+  // std::endl;
   double sum = 0;
   int16_t min = buffer[0], max = buffer[0];
   chart->removeAllSeries();
@@ -89,4 +104,8 @@ void ScopeWindow::liveRequest(bool isLive) {
     disconnect(this, &ScopeWindow::chartingFinished, scope,
                &PicoScope::measure);
   }
+}
+
+void ScopeWindow::sendSetup() {
+  emit setScopeChannel(coupling->currentIndex(), sens->currentIndex());
 }

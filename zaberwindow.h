@@ -18,6 +18,8 @@ private:
   QComboBox *selectBox, *unitbox;
   QLineEdit *manualMsg, *movePos;
   QListWidget *messageScrollback;
+  QPushButton *stepForward, *stepBackward;
+  QLineEdit *stepByValue;
   void refreshComboBox();
   double *microstepSize, *maxDistance, *unitMultiplier;
 private slots:
@@ -29,6 +31,8 @@ private slots:
   void moveToPos();
   void unitSelChd(QString unit);
   void unitSend(int index);
+  void stpFWD();
+  void stpBWD();
 public slots:
   void externalUnitChange(int index);
 

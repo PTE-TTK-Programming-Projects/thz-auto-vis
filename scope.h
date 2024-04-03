@@ -28,6 +28,7 @@ private slots:
 public slots:
   void getStatus();
   void measure();
+  void setScopeChannel(int couplingIDX, int sensIDX);
 signals:
   void sendStatus(std::string status);
   void finishSignal();
