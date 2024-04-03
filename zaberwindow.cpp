@@ -51,6 +51,8 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   connect(moveButton, &QPushButton::clicked, this, &ZaberWindow::moveToPos);
   connect(unitbox, &QComboBox::currentTextChanged, this,
           &ZaberWindow::unitSelChd);
+  connect(unitbox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+          &ZaberWindow::unitSend);
 }
 
 void ZaberWindow::refreshComboBox() {
@@ -110,4 +112,12 @@ void ZaberWindow::unitSelChd(QString unit) {
   } else if (unit == QString("um")) {
     *unitMultiplier = 1e-6;
   }
+}
+
+void ZaberWindow::externalUnitChange(int index) {
+  unitbox->setCurrentIndex(index);
+}
+
+void ZaberWindow::unitSend(int index) {
+  emit sendUnitIndex(index);
 }

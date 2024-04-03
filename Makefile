@@ -58,12 +58,14 @@ SOURCES       = scopewindow.cpp \
 		hostwindow.cpp \
 		scope_data_line.cpp \
 		zabermotor.cpp \
-		zaberwindow.cpp moc_scopewindow.cpp \
+		zaberwindow.cpp \
+		meascontrolwidget.cpp moc_scopewindow.cpp \
 		moc_scope.cpp \
 		moc_hostwindow.cpp \
 		moc_scope_data_line.cpp \
 		moc_zabermotor.cpp \
-		moc_zaberwindow.cpp
+		moc_zaberwindow.cpp \
+		moc_meascontrolwidget.cpp
 OBJECTS       = scopewindow.o \
 		main.o \
 		scope.o \
@@ -71,12 +73,14 @@ OBJECTS       = scopewindow.o \
 		scope_data_line.o \
 		zabermotor.o \
 		zaberwindow.o \
+		meascontrolwidget.o \
 		moc_scopewindow.o \
 		moc_scope.o \
 		moc_hostwindow.o \
 		moc_scope_data_line.o \
 		moc_zabermotor.o \
-		moc_zaberwindow.o
+		moc_zaberwindow.o \
+		moc_meascontrolwidget.o
 DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/unix.conf \
 		/usr/lib/qt/mkspecs/common/linux.conf \
@@ -391,13 +395,15 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		hostwindow.h \
 		scope_data_line.h \
 		zabermotor.h \
-		zaberwindow.h scopewindow.cpp \
+		zaberwindow.h \
+		meascontrolwidget.h scopewindow.cpp \
 		main.cpp \
 		scope.cpp \
 		hostwindow.cpp \
 		scope_data_line.cpp \
 		zabermotor.cpp \
-		zaberwindow.cpp
+		zaberwindow.cpp \
+		meascontrolwidget.cpp
 QMAKE_TARGET  = thz-auto-vis
 DESTDIR       = 
 TARGET        = thz-auto-vis
@@ -1045,8 +1051,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/qt/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents scopewindow.h scope.h hostwindow.h scope_data_line.h zabermotor.h zaberwindow.h $(DISTDIR)/
-	$(COPY_FILE) --parents scopewindow.cpp main.cpp scope.cpp hostwindow.cpp scope_data_line.cpp zabermotor.cpp zaberwindow.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents scopewindow.h scope.h hostwindow.h scope_data_line.h zabermotor.h zaberwindow.h meascontrolwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents scopewindow.cpp main.cpp scope.cpp hostwindow.cpp scope_data_line.cpp zabermotor.cpp zaberwindow.cpp meascontrolwidget.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -1078,9 +1084,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/qt/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -g -flto -fno-fat-lto-objects -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/qt/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.cpp moc_scope_data_line.cpp moc_zabermotor.cpp moc_zaberwindow.cpp
+compiler_moc_header_make_all: moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.cpp moc_scope_data_line.cpp moc_zabermotor.cpp moc_zaberwindow.cpp moc_meascontrolwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.cpp moc_scope_data_line.cpp moc_zabermotor.cpp moc_zaberwindow.cpp
+	-$(DEL_FILE) moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.cpp moc_scope_data_line.cpp moc_zabermotor.cpp moc_zaberwindow.cpp moc_meascontrolwidget.cpp
 moc_scopewindow.cpp: scopewindow.h \
 		scope_data_line.h \
 		scope.h \
@@ -1123,6 +1129,7 @@ moc_hostwindow.cpp: hostwindow.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
 		zaberwindow.h \
 		zabermotor.h \
+		meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
@@ -1142,6 +1149,11 @@ moc_zaberwindow.cpp: zaberwindow.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
+
+moc_meascontrolwidget.cpp: meascontrolwidget.h \
+		moc_predefs.h \
+		/usr/bin/moc
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1185,7 +1197,8 @@ main.o: main.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
 		zaberwindow.h \
-		zabermotor.h
+		zabermotor.h \
+		meascontrolwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 scope.o: scope.cpp scope.h \
@@ -1212,7 +1225,8 @@ hostwindow.o: hostwindow.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a-1.1/PicoConnectProbes.h \
 		zaberwindow.h \
-		zabermotor.h
+		zabermotor.h \
+		meascontrolwidget.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hostwindow.o hostwindow.cpp
 
 scope_data_line.o: scope_data_line.cpp scope_data_line.h
@@ -1224,6 +1238,9 @@ zabermotor.o: zabermotor.cpp zabermotor.h
 zaberwindow.o: zaberwindow.cpp zaberwindow.h \
 		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o zaberwindow.o zaberwindow.cpp
+
+meascontrolwidget.o: meascontrolwidget.cpp meascontrolwidget.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o meascontrolwidget.o meascontrolwidget.cpp
 
 moc_scopewindow.o: moc_scopewindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_scopewindow.o moc_scopewindow.cpp
@@ -1242,6 +1259,9 @@ moc_zabermotor.o: moc_zabermotor.cpp
 
 moc_zaberwindow.o: moc_zaberwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_zaberwindow.o moc_zaberwindow.cpp
+
+moc_meascontrolwidget.o: moc_meascontrolwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_meascontrolwidget.o moc_meascontrolwidget.cpp
 
 ####### Install
 

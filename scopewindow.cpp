@@ -32,6 +32,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   glued->addLayout(Llayout);
   glued->addLayout(Rlayout);
   setLayout(glued);
+  chart->layout()->setContentsMargins(0, 0, 0, 0);
   chart->resize(640, 480);
   chart->createDefaultAxes();
   connect(button, &QPushButton::clicked, scope, &PicoScope::getStatus);

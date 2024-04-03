@@ -1,9 +1,10 @@
 #pragma once
 #include "./zabermotor.h"
+#include <QErrorMessage>
 #include <QSerialPortInfo>
 #include <QtWidgets>
+#include <iostream>
 #include <string>
-#include <QErrorMessage>
 
 class ZaberWindow : public QFrame {
   Q_OBJECT;
@@ -19,7 +20,7 @@ private:
   QListWidget *messageScrollback;
   void refreshComboBox();
   double *microstepSize, *maxDistance, *unitMultiplier;
-  private slots:
+private slots:
   void selectPort();
   void motorMsg(std::string *message);
   void motorID(int ID);
@@ -27,8 +28,12 @@ private:
   void buttonHome();
   void moveToPos();
   void unitSelChd(QString unit);
+  void unitSend(int index);
+public slots:
+  void externalUnitChange(int index);
 
 signals:
   void connectToPort(std::string portName);
   void sendManualMsg(std::string manMsg);
+  void sendUnitIndex(int index);
 };
