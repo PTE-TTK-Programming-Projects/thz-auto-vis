@@ -43,8 +43,6 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);
   setMidLineWidth(3);
-  selectBox->setMinimumWidth(150);
-  selectBox->setMaximumWidth(150);
   connect(connectButton, &QPushButton::clicked, this, &ZaberWindow::selectPort);
   connect(this, &ZaberWindow::connectToPort, motor, &ZaberDevice::connectName);
   connect(motor, &ZaberDevice::motorSent, this, &ZaberWindow::motorMsg);
@@ -59,6 +57,7 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
           &ZaberWindow::unitSend);
   connect(stepForward, &QPushButton::clicked, this, &ZaberWindow::stpFWD);
   connect(stepBackward, &QPushButton::clicked, this, &ZaberWindow::stpBWD);
+  this->setFixedWidth(150);
 }
 
 void ZaberWindow::refreshComboBox() {

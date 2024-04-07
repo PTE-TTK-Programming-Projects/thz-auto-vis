@@ -27,7 +27,8 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   windowLength->addItems(
       QStringList(QList<QString>({"1 ms", "5 ms", "10 ms"})));
   triggerRatio = new QComboBox();
-  triggerRatio->addItems(QStringList(QList<QString>({"1%", "5%", "10%"})));
+  triggerRatio->addItems(
+      QStringList(QList<QString>({"1%", "5%", "10%", "External"})));
   QVBoxLayout *Llayout = new QVBoxLayout();
   QVBoxLayout *Rlayout = new QVBoxLayout();
   QHBoxLayout *setupBox = new QHBoxLayout();
@@ -151,5 +152,9 @@ void ScopeWindow::sendRatio() {
     break;
   case 2:
     emit setTriggerThreshold(10);
+    break;
+  case 3:
+    setTriggerThreshold(-1);
+    break;
   }
 }
