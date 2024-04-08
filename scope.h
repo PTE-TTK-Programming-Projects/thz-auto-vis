@@ -17,8 +17,10 @@ private:
   int16_t *maxValue, *ready, *divisor;
   uint32_t *timeBase;
   int32_t *timeTookMS;
-  int16_t *bufferArray;
+  int16_t *bufferArray, *sendArray;
+  int32_t *avgArray;
   int32_t *bufferLength;
+  int16_t *avgCounter, *avgRqst;
   uint32_t *noOfSamples;
   static void readReady(int16_t handle, PICO_STATUS status,
                             void *pParameter);
@@ -32,6 +34,7 @@ public slots:
   void setScopeChannel(int couplingIDX, int sensIDX);
   void setTimeWindow(uint32_t timeBase);
   void setTriggerRatio(int16_t divisor);
+  void setAvgRqst(const QString &lineEditString);
 signals:
   void sendStatus(std::string status);
   void finishSignal();

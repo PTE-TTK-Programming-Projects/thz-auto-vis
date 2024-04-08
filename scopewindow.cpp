@@ -1,6 +1,8 @@
 #include "./scopewindow.h"
 
 ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
+  avgRequest = new QLineEdit("0");
+  avgRequestLabel = new QLabel("Averaging count: ");
   button = new QPushButton("Status");
   measurebutton = new QPushButton("Capture Single");
   liveButton = new QPushButton("Live view");
@@ -33,6 +35,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   QVBoxLayout *Rlayout = new QVBoxLayout();
   QHBoxLayout *setupBox = new QHBoxLayout();
   QHBoxLayout *setupBox2 = new QHBoxLayout();
+  QHBoxLayout *avgBox = new QHBoxLayout();
   QHBoxLayout *glued = new QHBoxLayout();
   Rlayout->addWidget(homeButton);
   Rlayout->addWidget(measurebutton);
@@ -41,8 +44,11 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   setupBox->addWidget(sens);
   setupBox2->addWidget(windowLength);
   setupBox2->addWidget(triggerRatio);
+  avgBox->addWidget(avgRequestLabel);
+  avgBox->addWidget(avgRequest);
   Rlayout->addLayout(setupBox);
   Rlayout->addLayout(setupBox2);
+  Rlayout->addLayout(avgBox);
   Rlayout->addWidget(button);
   Rlayout->addWidget(status);
   Rlayout->addWidget(avgLine);
@@ -78,6 +84,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   connect(this, &ScopeWindow::setTriggerThreshold, scope,
           &PicoScope::setTriggerRatio);
   connect(this, &ScopeWindow::setTimeBase, scope, &PicoScope::setTimeWindow);
+  connect(avgRequest, &QLineEdit::textChanged, scope, &PicoScope::setAvgRqst);
   setFrameShape(QFrame::StyledPanel);
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);

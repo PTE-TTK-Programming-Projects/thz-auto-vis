@@ -12,6 +12,10 @@ PicoScope::PicoScope() : QObject() {
   bufferLength = new int32_t(2001);
   noOfSamples = new uint32_t(2001);
   bufferArray = new int16_t[2001];
+  sendArray = new int16_t[2001];
+  avgArray = new int32_t[2001];
+  avgCounter = new int16_t(0);
+  avgRqst = new int16_t(0);
   *status = ps5000aOpenUnit(handle, nullptr, PS5000A_DR_12BIT);
   if (*status == PICO_POWER_SUPPLY_NOT_CONNECTED) {
     ps5000aChangePowerSource(*handle, *status);
@@ -56,10 +60,35 @@ void PicoScope::getStatus() {
 
 void PicoScope::retrieveData() {
   // std::cout << "Retrieving data" << std::endl;
-  *noOfSamples = 2001;
   ps5000aGetValues(*handle, 0, noOfSamples, 1, PS5000A_RATIO_MODE_NONE, 0,
                    nullptr);
-  emit sendMeasurement(bufferLength, bufferArray);
+  *noOfSamples = 2001;
+  if (*avgRqst == 0 || *avgRqst == 1) {
+    emit sendMeasurement(bufferLength, bufferArray);
+  } else if (*avgCounter < *avgRqst) {
+    if (*avgCounter == 0) {
+      for (uint32_t i = 0; i < *noOfSamples; i++) {
+        avgArray[i] = static_cast<int32_t>(bufferArray[i]);
+      }
+      *avgCounter += 1;
+      measure();
+    } else {
+      for (uint32_t i = 0; i < *noOfSamples; i++) {
+        avgArray[i] += static_cast<int32_t>(bufferArray[i]);
+      }
+      *avgCounter += 1;
+      measure();
+    }
+  } else if (*avgCounter >= *avgRqst) {
+    for (uint32_t i = 0; i < *noOfSamples; i++) {
+      sendArray[i] = static_cast<int16_t>(avgArray[i] / *avgRqst);
+    }
+    *avgCounter = 0;
+    emit sendMeasurement(bufferLength, sendArray);
+  }
+}
+void PicoScope::setAvgRqst(const QString &lineEditString) {
+  *this->avgRqst = static_cast<int16_t>(lineEditString.toInt());
 }
 
 void PicoScope::readReady(int16_t handle, PICO_STATUS status,
@@ -116,10 +145,9 @@ void PicoScope::setTimeWindow(uint32_t timeBase) { *this->timeBase = timeBase; }
 void PicoScope::setTriggerRatio(int16_t divisor) {
   if (divisor != -1) {
     *this->divisor = divisor;
-    ps5000aSetSimpleTrigger(*handle, 0, PS5000A_CHANNEL::PS5000A_EXTERNAL,
-                            *maxValue / 10,
-                            PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
-                            1000);
+    ps5000aSetSimpleTrigger(
+        *handle, 0, PS5000A_CHANNEL::PS5000A_EXTERNAL, *maxValue / 10,
+        PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0, 1000);
     ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_CHANNEL_A,
                             *maxValue / *this->divisor,
                             PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
@@ -129,9 +157,8 @@ void PicoScope::setTriggerRatio(int16_t divisor) {
                             *maxValue / *this->divisor,
                             PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
                             1000);
-    ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_EXTERNAL,
-                            *maxValue / 2,
-                            PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
-                            1000);
+    ps5000aSetSimpleTrigger(
+        *handle, 1, PS5000A_CHANNEL::PS5000A_EXTERNAL, *maxValue / 2,
+        PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0, 1000);
   }
 }

@@ -29,7 +29,8 @@ private slots:
 
 private:
   QPushButton *button, *measurebutton, *liveButton, *homeButton;
-  QLineEdit *status;
+  QLineEdit *status, *avgRequest;
+  QLabel *avgRequestLabel;
   PicoScope *scope;
   QChartView *chartView;
   QChart *chart;
