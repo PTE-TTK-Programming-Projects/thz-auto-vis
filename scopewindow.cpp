@@ -49,8 +49,11 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   Rlayout->addWidget(ptpLine);
   Llayout->addWidget(chartView);
   Rlayout->setAlignment(Qt::AlignmentFlag::AlignTop);
+  QWidget *RWidget = new QWidget();
+  RWidget->setLayout(Rlayout);
+  RWidget->setFixedWidth(250);
   glued->addLayout(Llayout);
-  glued->addLayout(Rlayout);
+  glued->addWidget(RWidget);
   setLayout(glued);
   chart->layout()->setContentsMargins(0, 0, 0, 0);
   chart->resize(640, 480);

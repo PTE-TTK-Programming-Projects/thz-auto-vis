@@ -116,7 +116,7 @@ void PicoScope::setTimeWindow(uint32_t timeBase) { *this->timeBase = timeBase; }
 void PicoScope::setTriggerRatio(int16_t divisor) {
   if (divisor != -1) {
     *this->divisor = divisor;
-    ps5000aSetSimpleTrigger(*handle, 0, PS5000A_CHANNEL::PS5000A_TRIGGER_AUX,
+    ps5000aSetSimpleTrigger(*handle, 0, PS5000A_CHANNEL::PS5000A_EXTERNAL,
                             *maxValue / 10,
                             PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
                             1000);
@@ -129,8 +129,8 @@ void PicoScope::setTriggerRatio(int16_t divisor) {
                             *maxValue / *this->divisor,
                             PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
                             1000);
-    ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_TRIGGER_AUX,
-                            *maxValue / 10,
+    ps5000aSetSimpleTrigger(*handle, 1, PS5000A_CHANNEL::PS5000A_EXTERNAL,
+                            *maxValue / 2,
                             PS5000A_THRESHOLD_DIRECTION::PS5000A_RISING, 0,
                             1000);
   }

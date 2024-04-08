@@ -57,7 +57,7 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
           &ZaberWindow::unitSend);
   connect(stepForward, &QPushButton::clicked, this, &ZaberWindow::stpFWD);
   connect(stepBackward, &QPushButton::clicked, this, &ZaberWindow::stpBWD);
-  this->setFixedWidth(150);
+  this->setFixedWidth(250);
 }
 
 void ZaberWindow::refreshComboBox() {
