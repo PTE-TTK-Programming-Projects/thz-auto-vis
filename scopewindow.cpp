@@ -27,7 +27,7 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   sens->setCurrentIndex(6);
   windowLength = new QComboBox();
   windowLength->addItems(
-      QStringList(QList<QString>({"1 ms", "5 ms", "10 ms"})));
+      QStringList(QList<QString>({"1 ms", "5 ms", "10 ms", "100 ms", "500 ms", "1000 ms"})));
   triggerRatio = new QComboBox();
   triggerRatio->addItems(
       QStringList(QList<QString>({"1%", "5%", "10%", "External"})));
@@ -149,6 +149,12 @@ void ScopeWindow::sendTime() {
     break;
   case 2:
     emit setTimeBase(315);
+  case 3:
+    emit setTimeBase(2979);
+  csae 4:
+    emit setTimeBase(14884);
+  case 5: 
+    emit setTimeBase(29765);
   }
 }
 
