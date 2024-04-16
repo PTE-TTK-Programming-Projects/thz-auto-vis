@@ -37,9 +37,9 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = thz-auto-vis1.0.0
-DISTDIR = /home/illesg/github/thz-auto-vis/.tmp/thz-auto-vis1.0.0
+DISTDIR = /home/illesg/GitHub/thz-auto-vis/.tmp/thz-auto-vis1.0.0
 LINK          = g++
-LFLAGS        = -pipe -O2 -g -flto=2 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
+LFLAGS        = -pipe -O2 -g -flto=4 -fno-fat-lto-objects -fuse-linker-plugin -fPIC
 LIBS          = $(SUBLIBS) -L/opt/picoscope/lib -lps5000a /usr/lib/libQt5Charts.so /usr/lib/libQt5Widgets.so /usr/lib/libQt5Gui.so /usr/lib/libQt5SerialPort.so /usr/lib/libQt5Core.so -lGL -lpthread   
 AR            = gcc-ar cqs
 RANLIB        = 
@@ -90,25 +90,43 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuthCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCalendarCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCddb.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KChart.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KContacts.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDAV.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDESu.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDSoapClient.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDSoapServer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGantt.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHtml.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOGui.pri \
@@ -117,10 +135,24 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_KItemModels.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJS.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KParts.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeople.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPlotting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPty.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KQuickImageEditor.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KrossCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KrossUi.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
@@ -178,6 +210,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_fb_support_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_feedback.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_feedback_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_gamepad.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_gamepad_private.pri \
@@ -299,6 +333,8 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_websockets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_websockets_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webview.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webview_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri \
@@ -309,13 +345,23 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Prison.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroCoro.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroDBus.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroNetwork.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroQml.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroQuick.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroTest.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroWebSockets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Qt5Keychain.pri \
 		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
 		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Syndication.pri \
 		/usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
@@ -377,25 +423,43 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 		/usr/lib/qt/mkspecs/common/g++-base.conf \
 		/usr/lib/qt/mkspecs/common/g++-unix.conf \
 		/usr/lib/qt/mkspecs/qconfig.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Attica.pri \
+		/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KActivities.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KArchive.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuth.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KAuthCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCalendarCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCddb.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KChart.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCodecs.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCompletion.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KContacts.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KCrash.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDAV.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDESu.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDSoapClient.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KDSoapServer.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KGantt.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KHtml.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KI18n.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KIOGui.pri \
@@ -404,10 +468,24 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 		/usr/lib/qt/mkspecs/modules/qt_KItemModels.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KItemViews.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJS.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KNotifications.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KNTLM.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KParts.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeople.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPlotting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KPty.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KQuickImageEditor.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KrossCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KrossUi.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KService.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri \
+		/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri \
 		/usr/lib/qt/mkspecs/modules/qt_KWallet.pri \
@@ -465,6 +543,8 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 		/usr/lib/qt/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_fb_support_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_feedback.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_feedback_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_gamepad.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_gamepad_private.pri \
@@ -586,6 +666,8 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 		/usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_websockets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_websockets_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webview.pri \
+		/usr/lib/qt/mkspecs/modules/qt_lib_webview_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri \
@@ -596,13 +678,23 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 		/usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri \
 		/usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Marble.pri \
 		/usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Prison.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroCore.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroCoro.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroDBus.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroNetwork.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroQml.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroQuick.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroTest.pri \
+		/usr/lib/qt/mkspecs/modules/qt_QCoroWebSockets.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Qt5Keychain.pri \
 		/usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri \
 		/usr/lib/qt/mkspecs/modules/qt_Solid.pri \
 		/usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri \
 		/usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri \
+		/usr/lib/qt/mkspecs/modules/qt_Syndication.pri \
 		/usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri \
 		/usr/lib/qt/mkspecs/features/qt_functions.prf \
 		/usr/lib/qt/mkspecs/features/qt_config.prf \
@@ -641,25 +733,43 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 /usr/lib/qt/mkspecs/common/g++-base.conf:
 /usr/lib/qt/mkspecs/common/g++-unix.conf:
 /usr/lib/qt/mkspecs/qconfig.pri:
+/usr/lib/qt/mkspecs/modules/qt_Attica.pri:
+/usr/lib/qt/mkspecs/modules/qt_BluezQt.pri:
 /usr/lib/qt/mkspecs/modules/qt_KActivities.pri:
+/usr/lib/qt/mkspecs/modules/qt_KActivitiesStats.pri:
 /usr/lib/qt/mkspecs/modules/qt_KArchive.pri:
 /usr/lib/qt/mkspecs/modules/qt_KAuth.pri:
 /usr/lib/qt/mkspecs/modules/qt_KAuthCore.pri:
 /usr/lib/qt/mkspecs/modules/qt_KBookmarks.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCalendarCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCddb.pri:
+/usr/lib/qt/mkspecs/modules/qt_KChart.pri:
+/usr/lib/qt/mkspecs/modules/qt_KCMUtils.pri:
 /usr/lib/qt/mkspecs/modules/qt_KCodecs.pri:
 /usr/lib/qt/mkspecs/modules/qt_KCompletion.pri:
 /usr/lib/qt/mkspecs/modules/qt_KConfigCore.pri:
 /usr/lib/qt/mkspecs/modules/qt_KConfigGui.pri:
 /usr/lib/qt/mkspecs/modules/qt_KConfigWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KContacts.pri:
 /usr/lib/qt/mkspecs/modules/qt_KCoreAddons.pri:
 /usr/lib/qt/mkspecs/modules/qt_KCrash.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDAV.pri:
 /usr/lib/qt/mkspecs/modules/qt_KDBusAddons.pri:
 /usr/lib/qt/mkspecs/modules/qt_KDeclarative.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDESu.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDNSSD.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDSoapClient.pri:
+/usr/lib/qt/mkspecs/modules/qt_KDSoapServer.pri:
 /usr/lib/qt/mkspecs/modules/qt_KEmoticons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KFileMetaData.pri:
+/usr/lib/qt/mkspecs/modules/qt_KGantt.pri:
 /usr/lib/qt/mkspecs/modules/qt_KGlobalAccel.pri:
 /usr/lib/qt/mkspecs/modules/qt_KGuiAddons.pri:
+/usr/lib/qt/mkspecs/modules/qt_KHolidays.pri:
+/usr/lib/qt/mkspecs/modules/qt_KHtml.pri:
 /usr/lib/qt/mkspecs/modules/qt_KI18n.pri:
 /usr/lib/qt/mkspecs/modules/qt_KIconThemes.pri:
+/usr/lib/qt/mkspecs/modules/qt_KIdleTime.pri:
 /usr/lib/qt/mkspecs/modules/qt_KIOCore.pri:
 /usr/lib/qt/mkspecs/modules/qt_KIOFileWidgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_KIOGui.pri:
@@ -668,10 +778,24 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 /usr/lib/qt/mkspecs/modules/qt_KItemModels.pri:
 /usr/lib/qt/mkspecs/modules/qt_KItemViews.pri:
 /usr/lib/qt/mkspecs/modules/qt_KJobWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJS.pri:
+/usr/lib/qt/mkspecs/modules/qt_KJSApi.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNewStuff.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNewStuffCore.pri:
 /usr/lib/qt/mkspecs/modules/qt_KNotifications.pri:
+/usr/lib/qt/mkspecs/modules/qt_KNotifyConfig.pri:
 /usr/lib/qt/mkspecs/modules/qt_KNTLM.pri:
 /usr/lib/qt/mkspecs/modules/qt_KParts.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPeople.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPeopleWidgets.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPlotting.pri:
+/usr/lib/qt/mkspecs/modules/qt_KPty.pri:
+/usr/lib/qt/mkspecs/modules/qt_KQuickImageEditor.pri:
+/usr/lib/qt/mkspecs/modules/qt_KrossCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_KrossUi.pri:
 /usr/lib/qt/mkspecs/modules/qt_KService.pri:
+/usr/lib/qt/mkspecs/modules/qt_KSyntaxHighlighting.pri:
+/usr/lib/qt/mkspecs/modules/qt_KTextEditor.pri:
 /usr/lib/qt/mkspecs/modules/qt_KTextWidgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_KUnitConversion.pri:
 /usr/lib/qt/mkspecs/modules/qt_KWallet.pri:
@@ -729,6 +853,8 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 /usr/lib/qt/mkspecs/modules/qt_lib_eglfsdeviceintegration_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_fb_support_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_feedback.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_feedback_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_gamepad.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_gamepad_private.pri:
@@ -850,6 +976,8 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 /usr/lib/qt/mkspecs/modules/qt_lib_webenginewidgets_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_websockets.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_websockets_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_webview.pri:
+/usr/lib/qt/mkspecs/modules/qt_lib_webview_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_widgets.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_widgets_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_x11extras.pri:
@@ -860,13 +988,23 @@ Makefile: thz-auto-vis.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/qt/
 /usr/lib/qt/mkspecs/modules/qt_lib_xml_private.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns.pri:
 /usr/lib/qt/mkspecs/modules/qt_lib_xmlpatterns_private.pri:
+/usr/lib/qt/mkspecs/modules/qt_Marble.pri:
 /usr/lib/qt/mkspecs/modules/qt_phonon4qt5.pri:
 /usr/lib/qt/mkspecs/modules/qt_Prison.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroCore.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroCoro.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroDBus.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroNetwork.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroQml.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroQuick.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroTest.pri:
+/usr/lib/qt/mkspecs/modules/qt_QCoroWebSockets.pri:
 /usr/lib/qt/mkspecs/modules/qt_Qt5Keychain.pri:
 /usr/lib/qt/mkspecs/modules/qt_QuickAddons.pri:
 /usr/lib/qt/mkspecs/modules/qt_Solid.pri:
 /usr/lib/qt/mkspecs/modules/qt_SonnetCore.pri:
 /usr/lib/qt/mkspecs/modules/qt_SonnetUi.pri:
+/usr/lib/qt/mkspecs/modules/qt_Syndication.pri:
 /usr/lib/qt/mkspecs/modules/qt_ThreadWeaver.pri:
 /usr/lib/qt/mkspecs/features/qt_functions.prf:
 /usr/lib/qt/mkspecs/features/qt_config.prf:
@@ -958,7 +1096,7 @@ moc_scopewindow.cpp: scopewindow.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
 
 moc_scope.cpp: scope.h \
 		/opt/picoscope/include/libps5000a/ps5000aApi.h \
@@ -970,7 +1108,7 @@ moc_scope.cpp: scope.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope.h -o moc_scope.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope.h -o moc_scope.cpp
 
 moc_hostwindow.cpp: hostwindow.h \
 		scopewindow.h \
@@ -988,28 +1126,28 @@ moc_hostwindow.cpp: hostwindow.h \
 		meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
 
 moc_scope_data_line.cpp: scope_data_line.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope_data_line.h -o moc_scope_data_line.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope_data_line.h -o moc_scope_data_line.cpp
 
 moc_zabermotor.cpp: zabermotor.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zabermotor.h -o moc_zabermotor.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zabermotor.h -o moc_zabermotor.cpp
 
 moc_zaberwindow.cpp: zaberwindow.h \
 		zabermotor.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
 
 moc_meascontrolwidget.cpp: meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
-	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
+	/usr/bin/moc $(DEFINES) --include /home/illesg/GitHub/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/GitHub/thz-auto-vis -I/home/illesg/GitHub/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
