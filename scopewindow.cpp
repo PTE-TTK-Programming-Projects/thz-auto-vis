@@ -1,6 +1,8 @@
 #include "./scopewindow.h"
 
 ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
+  timeWindow = new double(1e-3);
+  sensitivity = new double(5);
   avgRequest = new QLineEdit("0");
   avgRequestLabel = new QLabel("Averaging count: ");
   button = new QPushButton("Status");
@@ -105,7 +107,8 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   chart->removeAllSeries();
   QLineSeries *line = new QLineSeries;
   for (int32_t i = 0; i < *bufferSize; i++) {
-    line->append(i - 1000, buffer[i]);
+    line->append(static_cast<double>(i - 1000) / 2001 * *timeWindow,
+                 static_cast<double>(buffer[i]) / 32767 * *sensitivity);
     sum += static_cast<double>(buffer[i]);
     if (buffer[i] > max) {
       max = buffer[i];
@@ -114,10 +117,13 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
       min = buffer[i];
     }
   }
-  avgLine->newData(sum / static_cast<double>(*bufferSize));
-  ptpLine->newData(static_cast<double>(max - min));
+  avgLine->newData(sum / static_cast<double>(*bufferSize) / 32767 *
+                   *sensitivity);
+  ptpLine->newData(static_cast<double>(max - min) / 32767 * *sensitivity);
   chart->addSeries(line);
   chart->createDefaultAxes();
+  chart->axisX()->setTitleText("Time (s)");
+  chart->axisY()->setTitleText("Voltage (V)");
   chart->legend()->hide();
   chart->update();
   emit chartingFinished();
@@ -137,27 +143,56 @@ void ScopeWindow::liveRequest(bool isLive) {
 
 void ScopeWindow::sendSetup() {
   emit setScopeChannel(coupling->currentIndex(), sens->currentIndex());
+  switch (sens->currentIndex()) {
+  case 0:
+    *sensitivity = 10e-3;
+    break;
+  case 1:
+    *sensitivity = 50e-3;
+    break;
+  case 2:
+    *sensitivity = 100e-3;
+    break;
+  case 3:
+    *sensitivity = 500e-3;
+    break;
+  case 4:
+    *sensitivity = 1000e-3;
+    break;
+  case 5:
+    *sensitivity = 2000e-3;
+    break;
+  case 6:
+    *sensitivity = 5000e-3;
+    break;
+  }
 }
 
 void ScopeWindow::sendTime() {
   switch (windowLength->currentIndex()) {
   case 0:
     emit setTimeBase(34);
+    *timeWindow = 1e-3;
     break;
   case 1:
     emit setTimeBase(159);
+    *timeWindow = 5e-3;
     break;
   case 2:
     emit setTimeBase(315);
+    *timeWindow = 10e-3;
     break;
   case 3:
     emit setTimeBase(2979);
+    *timeWindow = 100e-3;
     break;
   case 4:
     emit setTimeBase(14884);
+    *timeWindow = 500e-3;
     break;
   case 5:
     emit setTimeBase(29765);
+    *timeWindow = 1000e-3;
     break;
   }
 }

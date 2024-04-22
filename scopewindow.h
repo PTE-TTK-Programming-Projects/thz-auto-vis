@@ -37,6 +37,7 @@ private:
   ScopeDataLine *avgLine, *ptpLine;
   QComboBox *coupling, *sens;
   QComboBox *windowLength, *triggerRatio;
+  double *timeWindow, *sensitivity;
 };
 
 
