@@ -40,4 +40,5 @@ signals:
   void connectToPort(std::string portName);
   void sendManualMsg(std::string manMsg);
   void sendUnitIndex(int index);
+  void motorReady();
 };
