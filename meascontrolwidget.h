@@ -19,6 +19,7 @@ private:
   double *microstepSize, *maxDistance, *unitMultiplier; 
   u_int *stepCounter, *lastStep;
   std::vector<double> *positions;
+  bool *stepping;
 private slots:
   void sendCurrentIndex(int index);
   void startProcedure();
@@ -30,6 +31,7 @@ public slots:
   void enableMeasure();
   void claimMotorValues(double stepSize, double maxDist);
   void stepNext();
+  void scopeNext();
 
 signals:
   void unitSelectorIndex(int index);
@@ -38,4 +40,5 @@ signals:
   void stepMotor(double selectedPos);
   void startProc();
   void stopProc();
+  void takeSample();
 };

@@ -19,6 +19,9 @@ private:
 private slots:
   void startMeas();
   void stopMeas();
+
+signals:
+  void stopPtp();
 };
 
 #endif // HOST_WIN

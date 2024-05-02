@@ -20,6 +20,7 @@ MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
           &MeasureControlWindow::setUnits);
   connect(measure, &QPushButton::clicked, this,
           &MeasureControlWindow::startProcedure);
+   
 }
 
 void MeasureControlWindow::initDefaultValues() {
@@ -42,6 +43,7 @@ void MeasureControlWindow::initDefaultValues() {
   positions = new std::vector<double>();
   stepCounter = new u_int(0);
   lastStep = new u_int(0);
+  stepping = new bool();
 }
 
 void MeasureControlWindow::setupConnections() {
@@ -95,15 +97,16 @@ void MeasureControlWindow::startProcedure() {
   microstep = static_cast<int>(round(length));
   positions->clear();
   *stepCounter = 0;
+  *stepping = true;
 
-  for (int i = 0; i < numberOfSteps; i++) {
+  for (int i = 0; i < numberOfSteps+1; i++) {
     // emit stepMotor("/move rel +" + std::to_string(microstep));
     //  várakozás kell
     positions->push_back(startpos->text().toDouble() + i * length);
     //std::cout << i << ". position is calculated and stored" << std::endl;
   }
 
-  emit stepMotor("/home");
+  //emit stepMotor("/home");
   emit startProc();
 
   //}
@@ -120,11 +123,29 @@ void MeasureControlWindow::setUnits(QString unit) {
 void MeasureControlWindow::stepNext() {
   //std::cout << "Current position is: "<< *stepCounter << std::endl;
   //std::cout << "Last position is: " << positions->size() << std::endl;
-  if (*stepCounter < positions->size()) {
+  if (*stepCounter < positions->size() && *stepping) {
     emit stepMotor(positions->at(*stepCounter));
+    //emit takeSample();
     *stepCounter += 1;
-  } else {
+    *stepping = false;
+  } else if(*stepCounter < positions->size()){
+    // rest in place until the local measurement finished
+  }else {
     //std::cout << "please let me die" << std::endl;
     emit stopProc();
   }
 }
+
+void MeasureControlWindow::scopeNext(){
+  std::cout << "Mérek" << std::endl;
+  emit takeSample();
+  *stepping = true;
+}
+
+/*void valami(){
+  // lépé#include <iostream>
+    emit stepMotor() 
+
+  // mérés
+  emit takeSample();
+}*/

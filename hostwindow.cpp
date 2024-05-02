@@ -25,13 +25,24 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
           &HostWindow::startMeas);
   connect(conWin, &MeasureControlWindow::stopProc, this,
           &HostWindow::stopMeas);
+  connect(this, &HostWindow::stopPtp, scopeWin, &ScopeWindow::stopMeasure);
+  
 }
 
 void HostWindow::startMeas() {
-  connect(zaberWin, &ZaberWindow::motorReady, conWin,
-          &MeasureControlWindow::stepNext);
+  //connect(zaberWin,&ZaberWindow::motorReady,conWin,&MeasureControlWindow::stepNext);
+  connect(scopeWin, &ScopeWindow::nextRound, conWin, &MeasureControlWindow::stepNext);
+  connect(zaberWin, &ZaberWindow::motorReady, conWin, &MeasureControlWindow::scopeNext);
+  
+  /*connect(zaberWin, &ZaberWindow::motorReady, conWin,
+          &MeasureControlWindow::scopeNext);
+  connect(scopeWin, &ScopeWindow::scopeReady,conWin, &MeasureControlWindow::stepNext);*/
+  connect(conWin,&MeasureControlWindow::takeSample,scopeWin, &ScopeWindow::stepMeasure);
 }
 void HostWindow::stopMeas() {
-  disconnect(zaberWin, &ZaberWindow::motorReady, conWin,
-          &MeasureControlWindow::stepNext);
+  disconnect(zaberWin, &ZaberWindow::motorReady, conWin, &MeasureControlWindow::scopeNext);
+
+  disconnect(scopeWin, &ScopeWindow::nextRound, conWin, &MeasureControlWindow::stepNext);
+  disconnect(conWin,&MeasureControlWindow::takeSample,scopeWin, &ScopeWindow::stepMeasure);
+  emit stopPtp();
 }

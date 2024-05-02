@@ -66,6 +66,14 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
   chart->layout()->setContentsMargins(0, 0, 0, 0);
   chart->resize(640, 480);
   chart->createDefaultAxes();
+
+  stepProcess = new bool(false);
+  avgPlotLine = new QLineSeries();
+  avgPlotLine->clear();
+  ptpPlotLine = new QLineSeries();
+  ptpPlotLine->clear();
+  stepCount = new int(0);
+
   connect(button, &QPushButton::clicked, scope, &PicoScope::getStatus);
   connect(measurebutton, &QPushButton::clicked, scope, &PicoScope::measure);
   connect(scope, &PicoScope::sendStatus, this, &ScopeWindow::showStatus);
@@ -87,6 +95,9 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
           &PicoScope::setTriggerRatio);
   connect(this, &ScopeWindow::setTimeBase, scope, &PicoScope::setTimeWindow);
   connect(avgRequest, &QLineEdit::textChanged, scope, &PicoScope::setAvgRqst);
+
+  connect(this, &ScopeWindow::singleMeasure, scope, &PicoScope::measure);
+
   setFrameShape(QFrame::StyledPanel);
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);
@@ -94,7 +105,11 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
 }
 
 void ScopeWindow::showStatus(std::string status) {
+  //std::cout << status.c_str() << std::endl;
   this->status->setText(status.c_str());
+  if (status == "PICO_OK"){
+    emit scopeReady();
+  }
 }
 
 void ScopeWindow::resetZoom() { chart->zoomReset(); }
@@ -117,16 +132,25 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
       min = buffer[i];
     }
   }
-  avgLine->newData(sum / static_cast<double>(*bufferSize) / 32767 *
-                   *sensitivity);
-  ptpLine->newData(static_cast<double>(max - min) / 32767 * *sensitivity);
-  chart->addSeries(line);
+  double avg = sum / static_cast<double>(*bufferSize) /32767 * *sensitivity;
+  avgLine->newData(avg);
+  double ptp = static_cast<double>(max-min) / 32767 * *sensitivity;
+  ptpLine->newData(ptp);
+  if (*stepProcess){
+    avgPlotLine->append(*stepCount,avg);
+    ptpPlotLine->append(*stepCount,ptp);
+    chart->addSeries(ptpPlotLine);
+    std::cout << *stepCount << std::endl; 
+  }else{
+    chart->addSeries(line);
+  }
   chart->createDefaultAxes();
   chart->axisX()->setTitleText("Time (s)");
   chart->axisY()->setTitleText("Voltage (V)");
   chart->legend()->hide();
   chart->update();
   emit chartingFinished();
+  emit nextRound();
 }
 
 void ScopeWindow::liveRequest(bool isLive) {
@@ -212,4 +236,14 @@ void ScopeWindow::sendRatio() {
     setTriggerThreshold(-1);
     break;
   }
+}
+
+void ScopeWindow::stepMeasure(){
+  emit singleMeasure();
+  *stepProcess = true;
+  *stepCount+=1;
+}
+
+void ScopeWindow::stopMeasure(){
+  *stepProcess = false;
 }

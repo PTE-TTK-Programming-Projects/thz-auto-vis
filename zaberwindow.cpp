@@ -157,5 +157,5 @@ void ZaberWindow::procedure(std::string message) {
 }
 
 void ZaberWindow::relayReady() { 
-  std::cout << "Relaying signal" << std::endl;
+  std::cout << "Relaying signal" << endl;
   emit motorReady(); }
