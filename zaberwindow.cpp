@@ -3,6 +3,7 @@
 ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   unitMultiplier = new double(1e-3);
   motor = new ZaberDevice();
+  // MeasureControlWindow *measurecontrol = new MeasureControlWindow();
   selectBox = new QComboBox();
   connectButton = new QPushButton("Connect");
   moveButton = new QPushButton("Move motor");
@@ -50,7 +51,8 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   connect(manualMsg, &QLineEdit::returnPressed, this, &ZaberWindow::prepManMsg);
   connect(this, &ZaberWindow::sendManualMsg, motor, &ZaberDevice::sendToMotor);
   connect(homeButton, &QPushButton::clicked, this, &ZaberWindow::buttonHome);
-  connect(moveButton, &QPushButton::clicked, this, &ZaberWindow::moveToPos);
+  connect(moveButton, &QPushButton::clicked, this,
+          QOverload<>::of(&ZaberWindow::moveToPos));
   connect(unitbox, &QComboBox::currentTextChanged, this,
           &ZaberWindow::unitSelChd);
   connect(unitbox, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
@@ -58,6 +60,7 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   connect(stepForward, &QPushButton::clicked, this, &ZaberWindow::stpFWD);
   connect(stepBackward, &QPushButton::clicked, this, &ZaberWindow::stpBWD);
   this->setFixedWidth(250);
+  connect(motor,&ZaberDevice::motorReady,this, &ZaberWindow::relayReady);
 }
 
 void ZaberWindow::refreshComboBox() {
@@ -106,6 +109,15 @@ void ZaberWindow::moveToPos() {
   emit sendManualMsg("/move abs " + std::to_string(microstep));
 }
 
+void ZaberWindow::moveToPos(double selectedPos) {
+  int microstep;
+  microstep = static_cast<int>(round(selectedPos)) * (*unitMultiplier) /
+              (*microstepSize);
+  std::cout << "Requested position: " << selectedPos << std::endl;
+  std::cout << "Calculated microstep value: " << microstep << std::endl;
+  emit sendManualMsg("/move abs " + std::to_string(microstep));
+}
+
 void ZaberWindow::unitSelChd(QString unit) {
   if (unit == QString("mm")) {
     *unitMultiplier = 1e-3;
@@ -135,3 +147,15 @@ void ZaberWindow::stpBWD() {
   microstep = static_cast<int>(round(selectedPos));
   emit sendManualMsg("/move rel -" + std::to_string(microstep));
 }
+
+void ZaberWindow::sendMotorValues() {
+  emit giveMotorValues(*microstepSize, *maxDistance);
+}
+
+void ZaberWindow::procedure(std::string message) {
+  emit sendManualMsg(message);
+}
+
+void ZaberWindow::relayReady() { 
+  std::cout << "Relaying signal" << std::endl;
+  emit motorReady(); }

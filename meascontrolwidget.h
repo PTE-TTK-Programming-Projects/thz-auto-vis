@@ -1,9 +1,6 @@
 #pragma once
-#include <QtWidgets>
-#include <QLabel>
-#include <QPushButton>
 #include "./zaberwindow.h"
-#include "./zabermotor.h"
+#include <QtWidgets>
 
 class MeasureControlWindow : public QFrame {
   Q_OBJECT;
@@ -12,22 +9,33 @@ public:
   MeasureControlWindow(QWidget *parent = nullptr);
 
 private:
-  ZaberWindow *motorWin;
-  ZaberDevice *motor;
 
   void initDefaultValues();
   void setupConnections();
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
-  QLabel *start, *step, *end;
+  QLabel *start, *step, *end, *stepNumber;
   QPushButton *measure;
+  double *microstepSize, *maxDistance, *unitMultiplier; 
+  u_int *stepCounter, *lastStep;
+  std::vector<double> *positions;
 private slots:
   void sendCurrentIndex(int index);
-  void enableMeasure();
+  void startProcedure();
+
+  void setUnits(QString unit);
 
 public slots:
   void recUnitIndex(int index);
+  void enableMeasure();
+  void claimMotorValues(double stepSize, double maxDist);
+  void stepNext();
 
 signals:
   void unitSelectorIndex(int index);
+  void getMotorValues();
+  void stepMotor(std::string stepMsg);
+  void stepMotor(double selectedPos);
+  void startProc();
+  void stopProc();
 };

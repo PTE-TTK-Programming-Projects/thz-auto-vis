@@ -33,12 +33,18 @@ private slots:
   void unitSend(int index);
   void stpFWD();
   void stpBWD();
+  void relayReady();
+
 public slots:
   void externalUnitChange(int index);
+  void procedure(std::string);
+  void sendMotorValues();
+  void moveToPos(double selectedPos);
 
 signals:
   void connectToPort(std::string portName);
   void sendManualMsg(std::string manMsg);
   void sendUnitIndex(int index);
   void motorReady();
+  void giveMotorValues(double microstepSize, double maxDistance);
 };

@@ -1073,6 +1073,8 @@ moc_zaberwindow.cpp: zaberwindow.h \
 	/usr/bin/moc $(DEFINES) --include /home/sark00/Projects/cpp/picoScope/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sark00/Projects/cpp/picoScope/thz-auto-vis -I/home/sark00/Projects/cpp/picoScope/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include zaberwindow.h -o moc_zaberwindow.cpp
 
 moc_meascontrolwidget.cpp: meascontrolwidget.h \
+		zaberwindow.h \
+		zabermotor.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/sark00/Projects/cpp/picoScope/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/sark00/Projects/cpp/picoScope/thz-auto-vis -I/home/sark00/Projects/cpp/picoScope/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include meascontrolwidget.h -o moc_meascontrolwidget.cpp
@@ -1157,7 +1159,9 @@ zaberwindow.o: zaberwindow.cpp zaberwindow.h \
 		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o zaberwindow.o zaberwindow.cpp
 
-meascontrolwidget.o: meascontrolwidget.cpp meascontrolwidget.h
+meascontrolwidget.o: meascontrolwidget.cpp meascontrolwidget.h \
+		zaberwindow.h \
+		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o meascontrolwidget.o meascontrolwidget.cpp
 
 moc_scopewindow.o: moc_scopewindow.cpp 

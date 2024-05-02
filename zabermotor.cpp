@@ -30,13 +30,13 @@ void ZaberDevice::readSerial() {
   if (*buffer->end() == 10 || *buffer->end() == 0) {
     readTimer->stop();
     emit motorSent(buffer);
-    if (buffer->find("IDLE")) {
+    if (buffer->find("IDLE") != buffer->npos) {
       emit motorReady();
-    } else if (buffer->find("BUSY")) {
+    } else if (buffer->find("BUSY") != buffer->npos) {
       emit motorBusy();
     }
 
-    if (buffer->find("50105")) {
+    if (buffer->find("50105") != buffer->npos) {
       emit motorIDed(50105);
     }
   }

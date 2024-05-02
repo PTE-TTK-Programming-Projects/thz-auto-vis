@@ -15,6 +15,10 @@ private:
   ScopeWindow *scopeWin;
   ZaberWindow *zaberWin;
   MeasureControlWindow *conWin;
+
+private slots:
+  void startMeas();
+  void stopMeas();
 };
 
 #endif // HOST_WIN
