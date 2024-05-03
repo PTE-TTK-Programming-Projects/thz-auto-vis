@@ -99,7 +99,7 @@ void MeasureControlWindow::startProcedure() {
   *stepCounter = 0;
   *stepping = true;
 
-  for (int i = 0; i < numberOfSteps+1; i++) {
+  for (int i = 1; i < numberOfSteps+1; i++) {
     // emit stepMotor("/move rel +" + std::to_string(microstep));
     //  várakozás kell
     positions->push_back(startpos->text().toDouble() + i * length);

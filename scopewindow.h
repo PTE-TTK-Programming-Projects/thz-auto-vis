@@ -44,10 +44,11 @@ private:
   ScopeDataLine *avgLine, *ptpLine;
   QComboBox *coupling, *sens;
   QComboBox *windowLength, *triggerRatio;
-  double *timeWindow, *sensitivity;
+  double *timeWindow, *sensitivity, *avg, *ptp;
   bool *stepProcess;
   QLineSeries *avgPlotLine, *ptpPlotLine;
   int *stepCount;
+  QList<QPointF> *points;
 };
 
 

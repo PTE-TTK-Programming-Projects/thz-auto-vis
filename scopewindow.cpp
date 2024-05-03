@@ -69,10 +69,13 @@ ScopeWindow::ScopeWindow(QWidget *parent) : QFrame(parent) {
 
   stepProcess = new bool(false);
   avgPlotLine = new QLineSeries();
+  avg = new double(0);
   avgPlotLine->clear();
   ptpPlotLine = new QLineSeries();
+  ptp = new double(0);
   ptpPlotLine->clear();
-  stepCount = new int(0);
+  stepCount = new int();
+  points = new QList<QPointF>();
 
   connect(button, &QPushButton::clicked, scope, &PicoScope::getStatus);
   connect(measurebutton, &QPushButton::clicked, scope, &PicoScope::measure);
@@ -115,8 +118,6 @@ void ScopeWindow::showStatus(std::string status) {
 void ScopeWindow::resetZoom() { chart->zoomReset(); }
 
 void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
-  // std::cout << *bufferSize << " data points recieved for plotting" <<
-  // std::endl;
   double sum = 0;
   int16_t min = buffer[0], max = buffer[0];
   chart->removeAllSeries();
@@ -132,18 +133,45 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
       min = buffer[i];
     }
   }
-  double avg = sum / static_cast<double>(*bufferSize) /32767 * *sensitivity;
-  avgLine->newData(avg);
-  double ptp = static_cast<double>(max-min) / 32767 * *sensitivity;
-  ptpLine->newData(ptp);
+  *avg = sum / static_cast<double>(*bufferSize) /32767 * *sensitivity;
+  avgLine->newData(*avg);
+  *ptp = static_cast<double>(max-min) / 32767 * *sensitivity;
+  ptpLine->newData(*ptp);
   if (*stepProcess){
-    avgPlotLine->append(*stepCount,avg);
-    ptpPlotLine->append(*stepCount,ptp);
+    QPointF *point = new QPointF();
+    point->setX(*stepCount-1);
+    point->setY(*ptp);
+    points->push_back(*point);
+
+    avgPlotLine->append(*stepCount,*avg);
+    
+    ptpPlotLine->append(*points);
+    if (ptpPlotLine->count() > *stepCount){
+    ptpPlotLine->removePoints(0,ptpPlotLine->count() - *stepCount);
+
+    }
+
+
+    for (int i = 0; i < ptpPlotLine->count(); i++){
+      QPointF point = ptpPlotLine->at(i);
+      std::cout << point.x() << " " << point.y() << std::endl;
+    }
+    
+
+    /*if (*stepCount == 1){
+      chart->axisX()->setTitleText("Stepcount (arb. u.)");
+      chart->axisY()->setTitleText("Voltage (V)");
+    }*/
+
     chart->addSeries(ptpPlotLine);
-    std::cout << *stepCount << std::endl; 
   }else{
     chart->addSeries(line);
+    
+    /*chart->axisX()->setTitleText("Time (s)");
+    chart->axisY()->setTitleText("Voltage (V)");*/
   }
+  
+
   chart->createDefaultAxes();
   chart->axisX()->setTitleText("Time (s)");
   chart->axisY()->setTitleText("Voltage (V)");
@@ -246,4 +274,6 @@ void ScopeWindow::stepMeasure(){
 
 void ScopeWindow::stopMeasure(){
   *stepProcess = false;
+  points->clear();
+  *stepCount = 0;
 }
