@@ -133,11 +133,13 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
       min = buffer[i];
     }
   }
+
+
   *avg = sum / static_cast<double>(*bufferSize) /32767 * *sensitivity;
   avgLine->newData(*avg);
   *ptp = static_cast<double>(max-min) / 32767 * *sensitivity;
   ptpLine->newData(*ptp);
-  if (*stepProcess){
+  if (*stepProcess){ // if the goal is a stepping measurement
     QPointF *point = new QPointF();
     point->setX(*stepCount-1);
     point->setY(*ptp);
@@ -151,11 +153,11 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
 
     }
 
-
-    for (int i = 0; i < ptpPlotLine->count(); i++){
+    // Print out elements:
+    /*for (int i = 0; i < ptpPlotLine->count(); i++){
       QPointF point = ptpPlotLine->at(i);
       std::cout << point.x() << " " << point.y() << std::endl;
-    }
+    }*/
     
 
     /*if (*stepCount == 1){
@@ -164,7 +166,7 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
     }*/
 
     chart->addSeries(ptpPlotLine);
-  }else{
+  }else{ // if want a single measurement
     chart->addSeries(line);
     
     /*chart->axisX()->setTitleText("Time (s)");

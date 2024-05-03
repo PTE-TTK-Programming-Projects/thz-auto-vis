@@ -3,7 +3,6 @@
 ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   unitMultiplier = new double(1e-3);
   motor = new ZaberDevice();
-  // MeasureControlWindow *measurecontrol = new MeasureControlWindow();
   selectBox = new QComboBox();
   connectButton = new QPushButton("Connect");
   moveButton = new QPushButton("Move motor");
@@ -113,8 +112,8 @@ void ZaberWindow::moveToPos(double selectedPos) {
   int microstep;
   microstep = static_cast<int>(round(selectedPos)) * (*unitMultiplier) /
               (*microstepSize);
-  std::cout << "Requested position: " << selectedPos << std::endl;
-  std::cout << "Calculated microstep value: " << microstep << std::endl;
+  //std::cout << "Requested position: " << selectedPos << std::endl;
+  //std::cout << "Calculated microstep value: " << microstep << std::endl;
   emit sendManualMsg("/move abs " + std::to_string(microstep));
 }
 
@@ -157,5 +156,5 @@ void ZaberWindow::procedure(std::string message) {
 }
 
 void ZaberWindow::relayReady() { 
-  std::cout << "Relaying signal" << endl;
+  //std::cout << "Relaying signal" << endl;
   emit motorReady(); }

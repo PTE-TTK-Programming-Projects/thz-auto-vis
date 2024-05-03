@@ -30,13 +30,9 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
 }
 
 void HostWindow::startMeas() {
-  //connect(zaberWin,&ZaberWindow::motorReady,conWin,&MeasureControlWindow::stepNext);
   connect(scopeWin, &ScopeWindow::nextRound, conWin, &MeasureControlWindow::stepNext);
   connect(zaberWin, &ZaberWindow::motorReady, conWin, &MeasureControlWindow::scopeNext);
   
-  /*connect(zaberWin, &ZaberWindow::motorReady, conWin,
-          &MeasureControlWindow::scopeNext);
-  connect(scopeWin, &ScopeWindow::scopeReady,conWin, &MeasureControlWindow::stepNext);*/
   connect(conWin,&MeasureControlWindow::takeSample,scopeWin, &ScopeWindow::stepMeasure);
 }
 void HostWindow::stopMeas() {
