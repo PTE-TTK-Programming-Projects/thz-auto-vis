@@ -1,5 +1,6 @@
 #pragma once
 #include <QtWidgets>
+#include <iostream>
 
 class MeasureControlWindow : public QFrame {
   Q_OBJECT;
@@ -10,6 +11,8 @@ public:
 private:
   void initDefaultValues();
   void setupConnections();
+  void hideEvent(QHideEvent *event);
+  void closeEvent(QCloseEvent *event);
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
   QPushButton *showInstrumentControls;
@@ -23,4 +26,5 @@ public slots:
 signals:
   void unitSelectorIndex(int index);
   void instrumentVisibility(bool isChecked);
+  void controlsHidden();
 };

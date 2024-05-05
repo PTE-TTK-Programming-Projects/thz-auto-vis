@@ -19,6 +19,7 @@ private:
 
 private slots:
   void visChanged(bool isChecked);
+  void controlHidden();
 };
 
 #endif // HOST_WIN

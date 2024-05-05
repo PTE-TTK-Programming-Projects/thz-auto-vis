@@ -18,6 +18,8 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
           &MeasureControlWindow::recUnitIndex);
   connect(conWin, &MeasureControlWindow::instrumentVisibility, this,
           &HostWindow::visChanged);
+  connect(conWin, &MeasureControlWindow::controlsHidden, this,
+          &HostWindow::controlHidden);
 }
 
 void HostWindow::visChanged(bool isChecked) {
@@ -26,4 +28,8 @@ void HostWindow::visChanged(bool isChecked) {
   } else {
     instrumentPanel->hide();
   }
+}
+
+void HostWindow::controlHidden(){
+  QCoreApplication::exit();
 }

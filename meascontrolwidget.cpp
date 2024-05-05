@@ -39,3 +39,6 @@ void MeasureControlWindow::recUnitIndex(int index) {
 void MeasureControlWindow::showClicked() {
   emit instrumentVisibility(showInstrumentControls->isChecked());
 }
+
+void MeasureControlWindow::hideEvent(QHideEvent *event) { event->ignore(); }
+void MeasureControlWindow::closeEvent(QCloseEvent *event) { event->ignore(); }
