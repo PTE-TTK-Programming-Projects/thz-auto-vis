@@ -1,9 +1,9 @@
 #ifndef HOST_WIN
 #define HOST_WIN
 
+#include "./meascontrolwidget.h"
 #include "./scopewindow.h"
 #include "./zaberwindow.h"
-#include "./meascontrolwidget.h"
 
 class HostWindow : public QWidget {
   Q_OBJECT
@@ -15,6 +15,10 @@ private:
   ScopeWindow *scopeWin;
   ZaberWindow *zaberWin;
   MeasureControlWindow *conWin;
+  QFrame *instrumentPanel;
+
+private slots:
+  void visChanged(bool isChecked);
 };
 
 #endif // HOST_WIN

@@ -2,7 +2,8 @@
 
 MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   initDefaultValues();
-  QHBoxLayout *layout = new QHBoxLayout();
+  QVBoxLayout *layout = new QVBoxLayout();
+  layout->addWidget(showInstrumentControls);
   layout->addWidget(startpos);
   layout->addWidget(stepsize);
   layout->addWidget(endpos);
@@ -17,11 +18,15 @@ void MeasureControlWindow::initDefaultValues() {
   stepsize = new QLineEdit();
   unitSelector = new QComboBox();
   unitSelector->addItems(QList<QString>({QString("mm"), QString("um")}));
+  showInstrumentControls = new QPushButton("Show instrument controls");
+  showInstrumentControls->setCheckable(true);
 }
 
 void MeasureControlWindow::setupConnections() {
   connect(unitSelector, QOverload<int>::of(&QComboBox::currentIndexChanged),
           this, &MeasureControlWindow::sendCurrentIndex);
+  connect(showInstrumentControls, &QPushButton::clicked, this,
+          &MeasureControlWindow::showClicked);
 }
 
 void MeasureControlWindow::sendCurrentIndex(int index) {
@@ -30,4 +35,7 @@ void MeasureControlWindow::sendCurrentIndex(int index) {
 
 void MeasureControlWindow::recUnitIndex(int index) {
   unitSelector->setCurrentIndex(index);
+}
+void MeasureControlWindow::showClicked() {
+  emit instrumentVisibility(showInstrumentControls->isChecked());
 }
