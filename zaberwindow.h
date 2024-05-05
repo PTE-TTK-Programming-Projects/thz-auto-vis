@@ -22,6 +22,7 @@ private:
   QLineEdit *stepByValue;
   void refreshComboBox();
   double *microstepSize, *maxDistance, *unitMultiplier;
+  void connectSignals();
 private slots:
   void selectPort();
   void motorMsg(std::string *message);
@@ -33,6 +34,7 @@ private slots:
   void unitSend(int index);
   void stpFWD();
   void stpBWD();
+  void relayMotorReady();
 public slots:
   void externalUnitChange(int index);
 
@@ -40,4 +42,5 @@ signals:
   void connectToPort(std::string portName);
   void sendManualMsg(std::string manMsg);
   void sendUnitIndex(int index);
+  void motorReady();
 };

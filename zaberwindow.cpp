@@ -43,6 +43,11 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
   setFrameShadow(QFrame::Raised);
   setLineWidth(3);
   setMidLineWidth(3);
+  connectSignals();
+  this->setFixedWidth(250);
+}
+
+void ZaberWindow::connectSignals() {
   connect(connectButton, &QPushButton::clicked, this, &ZaberWindow::selectPort);
   connect(this, &ZaberWindow::connectToPort, motor, &ZaberDevice::connectName);
   connect(motor, &ZaberDevice::motorSent, this, &ZaberWindow::motorMsg);
@@ -57,7 +62,7 @@ ZaberWindow::ZaberWindow(QWidget *parent) : QFrame(parent) {
           &ZaberWindow::unitSend);
   connect(stepForward, &QPushButton::clicked, this, &ZaberWindow::stpFWD);
   connect(stepBackward, &QPushButton::clicked, this, &ZaberWindow::stpBWD);
-  this->setFixedWidth(250);
+  connect(motor, &ZaberDevice::motorReady, this, &ZaberWindow::relayMotorReady);
 }
 
 void ZaberWindow::refreshComboBox() {
@@ -135,3 +140,5 @@ void ZaberWindow::stpBWD() {
   microstep = static_cast<int>(round(selectedPos));
   emit sendManualMsg("/move rel -" + std::to_string(microstep));
 }
+
+void ZaberWindow::relayMotorReady() { emit motorReady(); }
