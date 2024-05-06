@@ -119,7 +119,9 @@ void ScopeWindow::showMeasurementData(int32_t *bufferSize, int16_t *buffer) {
   }
   avgLine->newData(sum / static_cast<double>(*bufferSize) / 32767 *
                    *sensitivity);
+  emit sendAvg(avgLine->readData());
   ptpLine->newData(static_cast<double>(max - min) / 32767 * *sensitivity);
+  emit sendPtp(ptpLine->readData());
   chart->addSeries(line);
   chart->createDefaultAxes();
   chart->axisX()->setTitleText("Time (s)");

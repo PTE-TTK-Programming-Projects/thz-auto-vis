@@ -26,6 +26,8 @@ private slots:
   void setScopeChannel(int couplingIDX, int sensIDX);
   void setTriggerThreshold(int16_t divisor);
   void setTimeBase(uint32_t timeBase);
+  void sendAvg(double avg);
+  void sendPtp(double ptp);
 
 private:
   QPushButton *button, *measurebutton, *liveButton, *homeButton;

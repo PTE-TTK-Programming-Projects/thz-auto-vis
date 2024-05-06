@@ -6,6 +6,8 @@ ScopeDataLine::ScopeDataLine(std::string dataName, double value,
   this->dataName = new QLabel(dataName.c_str());
   this->dataValue = new QLineEdit(QString::number(value));
   this->dataValue->setReadOnly(true);
+  this->data = new double;
+  *this->data = value;
   QHBoxLayout *layout = new QHBoxLayout();
   layout->addWidget(this->dataName);
   layout->addWidget(this->dataValue);
@@ -13,6 +15,8 @@ ScopeDataLine::ScopeDataLine(std::string dataName, double value,
   setLayout(layout);
 }
 
-void ScopeDataLine::newData(double value){
+void ScopeDataLine::newData(double value) {
   this->dataValue->setText(QString::number(value));
 }
+
+double ScopeDataLine::readData() { return *this->data; }

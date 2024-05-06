@@ -8,6 +8,7 @@ class ScopeDataLine : public QWidget{
 
 public:
   ScopeDataLine(std::string dataName = "Data", double value = 0, QWidget *parent = nullptr);
+  double readData();
 
 public slots:
 void newData(double value);
@@ -15,6 +16,7 @@ void newData(double value);
 private:
   QLabel *dataName;
   QLineEdit *dataValue;
+  double *data;
 };
 
 #endif
