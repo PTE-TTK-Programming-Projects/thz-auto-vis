@@ -1,6 +1,7 @@
 #pragma once
 #include <QtWidgets>
 #include <iostream>
+#include <QtCharts>
 
 class MeasureControlWindow : public QFrame {
   Q_OBJECT;
@@ -16,6 +17,10 @@ private:
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
   QPushButton *showInstrumentControls;
+  QLabel *start, *step, *stop;
+  QFrame *parameterFrame, *visualizationFrame;
+  QChart *chart;
+  QChartView *chartView;
 private slots:
   void sendCurrentIndex(int index);
   void showClicked();

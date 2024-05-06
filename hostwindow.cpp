@@ -11,6 +11,8 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
   instrumentPanel->setLayout(instLayout);
   QGridLayout *layout = new QGridLayout();
   layout->addWidget(conWin);
+  instrumentPanel->setWindowFlags(Qt::Window | Qt::WindowMaximizeButtonHint);
+  this->setWindowFlags(Qt::Window | Qt::WindowCloseButtonHint);
   setLayout(layout);
   connect(conWin, &MeasureControlWindow::unitSelectorIndex, zaberWin,
           &ZaberWindow::externalUnitChange);
@@ -30,6 +32,4 @@ void HostWindow::visChanged(bool isChecked) {
   }
 }
 
-void HostWindow::controlHidden(){
-  QCoreApplication::exit();
-}
+void HostWindow::controlHidden() { QCoreApplication::exit(); }

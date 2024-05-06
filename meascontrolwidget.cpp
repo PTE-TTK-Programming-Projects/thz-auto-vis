@@ -4,12 +4,23 @@ MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   initDefaultValues();
   QVBoxLayout *layout = new QVBoxLayout();
   layout->addWidget(showInstrumentControls);
+  layout->addWidget(start);
   layout->addWidget(startpos);
+  layout->addWidget(step);
   layout->addWidget(stepsize);
+  layout->addWidget(stop);
   layout->addWidget(endpos);
   layout->addWidget(unitSelector);
+  layout->setAlignment(Qt::AlignmentFlag::AlignTop);
   setupConnections();
-  setLayout(layout);
+  parameterFrame->setLayout(layout);
+  QGridLayout *visLayout = new QGridLayout();
+  visLayout->addWidget(chartView);
+  visualizationFrame->setLayout(visLayout);
+  QHBoxLayout *measureLayout = new QHBoxLayout();
+  measureLayout->addWidget(visualizationFrame);
+  measureLayout->addWidget(parameterFrame);
+  setLayout(measureLayout);
 }
 
 void MeasureControlWindow::initDefaultValues() {
@@ -20,6 +31,26 @@ void MeasureControlWindow::initDefaultValues() {
   unitSelector->addItems(QList<QString>({QString("mm"), QString("um")}));
   showInstrumentControls = new QPushButton("Show instrument controls");
   showInstrumentControls->setCheckable(true);
+  start = new QLabel("Start Position");
+  step = new QLabel("Stepping distance");
+  stop = new QLabel("End postition");
+  parameterFrame = new QFrame();
+  visualizationFrame = new QFrame();
+  chart = new QChart();
+  chartView = new QChartView(chart);
+  chart->layout()->setContentsMargins(0, 0, 0, 0);
+  chart->resize(640, 480);
+  chartView->setRubberBand(QChartView::RectangleRubberBand);
+  chartView->setRenderHint(QPainter::Antialiasing, true);
+  parameterFrame->setFrameShape(QFrame::StyledPanel);
+  parameterFrame->setFrameShadow(QFrame::Raised);
+  parameterFrame->setLineWidth(3);
+  parameterFrame->setMidLineWidth(3);
+  parameterFrame->setFixedWidth(200);
+  visualizationFrame->setFrameShape(QFrame::StyledPanel);
+  visualizationFrame->setFrameShadow(QFrame::Raised);
+  visualizationFrame->setLineWidth(3);
+  visualizationFrame->setMidLineWidth(3);
 }
 
 void MeasureControlWindow::setupConnections() {

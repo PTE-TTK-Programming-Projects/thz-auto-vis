@@ -973,6 +973,7 @@ moc_scope.cpp: scope.h \
 	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scope.h -o moc_scope.cpp
 
 moc_hostwindow.cpp: hostwindow.h \
+		meascontrolwidget.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
@@ -985,7 +986,6 @@ moc_hostwindow.cpp: hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
 		zabermotor.h \
-		meascontrolwidget.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include hostwindow.h -o moc_hostwindow.cpp
@@ -1040,6 +1040,7 @@ scopewindow.o: scopewindow.cpp scopewindow.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scopewindow.o scopewindow.cpp
 
 main.o: main.cpp hostwindow.h \
+		meascontrolwidget.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
@@ -1051,8 +1052,7 @@ main.o: main.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
-		zabermotor.h \
-		meascontrolwidget.h
+		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 scope.o: scope.cpp scope.h \
@@ -1066,6 +1066,7 @@ scope.o: scope.cpp scope.h \
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scope.o scope.cpp
 
 hostwindow.o: hostwindow.cpp hostwindow.h \
+		meascontrolwidget.h \
 		scopewindow.h \
 		scope_data_line.h \
 		scope.h \
@@ -1077,8 +1078,7 @@ hostwindow.o: hostwindow.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
 		zaberwindow.h \
-		zabermotor.h \
-		meascontrolwidget.h
+		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hostwindow.o hostwindow.cpp
 
 scope_data_line.o: scope_data_line.cpp scope_data_line.h
