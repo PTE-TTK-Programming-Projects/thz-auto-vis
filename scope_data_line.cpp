@@ -21,6 +21,5 @@ void ScopeDataLine::newData(double value) {
 }
 
 double ScopeDataLine::readData() { 
-  std::cout << "Data sent: " << *this->data << std::endl;
   return *this->data; 
 }
