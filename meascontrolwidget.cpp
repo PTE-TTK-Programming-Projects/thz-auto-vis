@@ -55,6 +55,7 @@ void MeasureControlWindow::initDefaultValues() {
   startMeasure = new QPushButton("Start measurement");
   coords = new std::vector<double>();
   measVals = new std::vector<double>();
+  stopButton = new QPushButton("Stop and Reset");
 }
 
 void MeasureControlWindow::setupConnections() {
@@ -64,6 +65,8 @@ void MeasureControlWindow::setupConnections() {
           &MeasureControlWindow::showClicked);
   connect(startMeasure, &QPushButton::clicked, this,
           &MeasureControlWindow::startMeasProc);
+  connect(stopButton, &QPushButton::clicked, this,
+          &MeasureControlWindow::stopMeasProc);
 }
 
 void MeasureControlWindow::sendCurrentIndex(int index) {
@@ -119,3 +122,5 @@ void MeasureControlWindow::plotResults() {
   chart->legend()->hide();
   chart->update();
 }
+
+void MeasureControlWindow::stopMeasProc() { emit requestStop(); }

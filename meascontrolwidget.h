@@ -16,7 +16,7 @@ private:
   void closeEvent(QCloseEvent *event);
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
-  QPushButton *showInstrumentControls, *startMeasure;
+  QPushButton *showInstrumentControls, *startMeasure, *stopButton;
   QLabel *start, *step, *stop;
   QFrame *parameterFrame, *visualizationFrame;
   QChart *chart;
@@ -27,6 +27,7 @@ private slots:
   void sendCurrentIndex(int index);
   void showClicked();
   void startMeasProc();
+  void stopMeasProc();
 
 public slots:
   void recUnitIndex(int index);
