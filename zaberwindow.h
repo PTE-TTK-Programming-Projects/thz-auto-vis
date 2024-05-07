@@ -37,6 +37,7 @@ private slots:
   void relayMotorReady();
 public slots:
   void externalUnitChange(int index);
+  void moveToUnitPos(double position);
 
 signals:
   void connectToPort(std::string portName);

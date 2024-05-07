@@ -1,8 +1,8 @@
 #ifndef HOST_WINDOW
 #define HOST_WINDOW
 
-#include "./scope_data_line.h"
 #include "./scope.h"
+#include "./scope_data_line.h"
 #include <QtCharts>
 #include <QtWidgets>
 #include <string>
@@ -12,6 +12,7 @@ class ScopeWindow : public QFrame {
 
 public:
   ScopeWindow(QWidget *parent = nullptr);
+
 private slots:
   void showStatus(std::string status);
   void showMeasurementData(int32_t *bufferSize, int16_t *buffer);
@@ -21,7 +22,7 @@ private slots:
   void sendTime();
   void sendRatio();
 
-  signals:
+signals:
   void chartingFinished();
   void setScopeChannel(int couplingIDX, int sensIDX);
   void setTriggerThreshold(int16_t divisor);
@@ -40,7 +41,9 @@ private:
   QComboBox *coupling, *sens;
   QComboBox *windowLength, *triggerRatio;
   double *timeWindow, *sensitivity;
-};
 
+public slots:
+  void extMeasure();
+};
 
 #endif // HOST_WINDOW

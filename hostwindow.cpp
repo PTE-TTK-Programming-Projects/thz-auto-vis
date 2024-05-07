@@ -22,6 +22,12 @@ HostWindow::HostWindow(QWidget *parent) : QWidget(parent) {
           &HostWindow::visChanged);
   connect(conWin, &MeasureControlWindow::controlsHidden, this,
           &HostWindow::controlHidden);
+  connect(conWin, &MeasureControlWindow::requestStart, this,
+          &HostWindow::start);
+  connect(conWin, &MeasureControlWindow::requestStop, this, &HostWindow::stop);
+  this->setWindowTitle("THz auto visualizer by Gergő Illés");
+  instrumentPanel->setWindowTitle(
+      "Advanced Instrument Controls by Gergő Illés");
 }
 
 void HostWindow::visChanged(bool isChecked) {
@@ -33,3 +39,22 @@ void HostWindow::visChanged(bool isChecked) {
 }
 
 void HostWindow::controlHidden() { QCoreApplication::exit(); }
+
+void HostWindow::start(double pos) {
+  connect(zaberWin, &ZaberWindow::motorReady, scopeWin,
+          &ScopeWindow::extMeasure);
+  connect(scopeWin, &ScopeWindow::sendAvg, conWin,
+          &MeasureControlWindow::recMeasPoint);
+  connect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
+          &ZaberWindow::moveToUnitPos);
+  zaberWin->moveToUnitPos(pos);
+}
+
+void HostWindow::stop() {
+  disconnect(zaberWin, &ZaberWindow::motorReady, scopeWin,
+             &ScopeWindow::extMeasure);
+  disconnect(scopeWin, &ScopeWindow::sendAvg, conWin,
+             &MeasureControlWindow::recMeasPoint);
+  disconnect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
+             &ZaberWindow::moveToUnitPos);
+}

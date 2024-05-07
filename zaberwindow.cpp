@@ -110,6 +110,12 @@ void ZaberWindow::moveToPos() {
   microstep = static_cast<int>(round(selectedPos));
   emit sendManualMsg("/move abs " + std::to_string(microstep));
 }
+void ZaberWindow::moveToUnitPos(double position) {
+  int microstep;
+  double selectedPos = position * (*unitMultiplier) / (*microstepSize);
+  microstep = static_cast<int>(round(selectedPos));
+  emit sendManualMsg("/move abs " + std::to_string(microstep));
+}
 
 void ZaberWindow::unitSelChd(QString unit) {
   if (unit == QString("mm")) {

@@ -215,3 +215,7 @@ void ScopeWindow::sendRatio() {
     break;
   }
 }
+
+void ScopeWindow::extMeasure(){
+  scope->measure();
+}

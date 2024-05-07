@@ -1,7 +1,7 @@
 #pragma once
+#include <QtCharts>
 #include <QtWidgets>
 #include <iostream>
-#include <QtCharts>
 
 class MeasureControlWindow : public QFrame {
   Q_OBJECT;
@@ -16,20 +16,27 @@ private:
   void closeEvent(QCloseEvent *event);
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
-  QPushButton *showInstrumentControls;
+  QPushButton *showInstrumentControls, *startMeasure;
   QLabel *start, *step, *stop;
   QFrame *parameterFrame, *visualizationFrame;
   QChart *chart;
   QChartView *chartView;
+  std::vector<double> *coords, *measVals;
+  void plotResults();
 private slots:
   void sendCurrentIndex(int index);
   void showClicked();
+  void startMeasProc();
 
 public slots:
   void recUnitIndex(int index);
+  void recMeasPoint(double value);
 
 signals:
   void unitSelectorIndex(int index);
   void instrumentVisibility(bool isChecked);
   void controlsHidden();
+  void requestStart(double pos);
+  void requestNextStep(double pos);
+  void requestStop();
 };

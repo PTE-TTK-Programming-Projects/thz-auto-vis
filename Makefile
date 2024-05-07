@@ -947,7 +947,6 @@ compiler_moc_header_make_all: moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.c
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_scopewindow.cpp moc_scope.cpp moc_hostwindow.cpp moc_scope_data_line.cpp moc_zabermotor.cpp moc_zaberwindow.cpp moc_meascontrolwidget.cpp
 moc_scopewindow.cpp: scopewindow.h \
-		scope_data_line.h \
 		scope.h \
 		/opt/picoscope/include/libps5000a/ps5000aApi.h \
 		/opt/picoscope/include/libps5000a/PicoStatus.h \
@@ -956,6 +955,7 @@ moc_scopewindow.cpp: scopewindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
+		scope_data_line.h \
 		moc_predefs.h \
 		/usr/bin/moc
 	/usr/bin/moc $(DEFINES) --include /home/illesg/github/thz-auto-vis/moc_predefs.h -I/usr/lib/qt/mkspecs/linux-g++ -I/home/illesg/github/thz-auto-vis -I/home/illesg/github/thz-auto-vis -I/opt/picoscope/include/libps5000a -I/usr/include/qt -I/usr/include/qt/QtCharts -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtGui -I/usr/include/qt/QtSerialPort -I/usr/include/qt/QtCore -I/usr/include/c++/13.2.1 -I/usr/include/c++/13.2.1/x86_64-pc-linux-gnu -I/usr/include/c++/13.2.1/backward -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include -I/usr/local/include -I/usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include-fixed -I/usr/include scopewindow.h -o moc_scopewindow.cpp
@@ -975,7 +975,6 @@ moc_scope.cpp: scope.h \
 moc_hostwindow.cpp: hostwindow.h \
 		meascontrolwidget.h \
 		scopewindow.h \
-		scope_data_line.h \
 		scope.h \
 		/opt/picoscope/include/libps5000a/ps5000aApi.h \
 		/opt/picoscope/include/libps5000a/PicoStatus.h \
@@ -984,6 +983,7 @@ moc_hostwindow.cpp: hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
+		scope_data_line.h \
 		zaberwindow.h \
 		zabermotor.h \
 		moc_predefs.h \
@@ -1028,21 +1028,6 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 ####### Compile
 
 scopewindow.o: scopewindow.cpp scopewindow.h \
-		scope_data_line.h \
-		scope.h \
-		/opt/picoscope/include/libps5000a/ps5000aApi.h \
-		/opt/picoscope/include/libps5000a/PicoStatus.h \
-		/opt/picoscope/include/libps5000a/PicoVersion.h \
-		/opt/picoscope/include/libps5000a/PicoCallback.h \
-		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
-		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
-		/opt/picoscope/include/libps5000a/PicoConnectProbes.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scopewindow.o scopewindow.cpp
-
-main.o: main.cpp hostwindow.h \
-		meascontrolwidget.h \
-		scopewindow.h \
-		scope_data_line.h \
 		scope.h \
 		/opt/picoscope/include/libps5000a/ps5000aApi.h \
 		/opt/picoscope/include/libps5000a/PicoStatus.h \
@@ -1051,6 +1036,21 @@ main.o: main.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
+		scope_data_line.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o scopewindow.o scopewindow.cpp
+
+main.o: main.cpp hostwindow.h \
+		meascontrolwidget.h \
+		scopewindow.h \
+		scope.h \
+		/opt/picoscope/include/libps5000a/ps5000aApi.h \
+		/opt/picoscope/include/libps5000a/PicoStatus.h \
+		/opt/picoscope/include/libps5000a/PicoVersion.h \
+		/opt/picoscope/include/libps5000a/PicoCallback.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
+		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
+		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
+		scope_data_line.h \
 		zaberwindow.h \
 		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
@@ -1068,7 +1068,6 @@ scope.o: scope.cpp scope.h \
 hostwindow.o: hostwindow.cpp hostwindow.h \
 		meascontrolwidget.h \
 		scopewindow.h \
-		scope_data_line.h \
 		scope.h \
 		/opt/picoscope/include/libps5000a/ps5000aApi.h \
 		/opt/picoscope/include/libps5000a/PicoStatus.h \
@@ -1077,6 +1076,7 @@ hostwindow.o: hostwindow.cpp hostwindow.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceEnums.h \
 		/opt/picoscope/include/libps5000a/PicoDeviceStructs.h \
 		/opt/picoscope/include/libps5000a/PicoConnectProbes.h \
+		scope_data_line.h \
 		zaberwindow.h \
 		zabermotor.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o hostwindow.o hostwindow.cpp
