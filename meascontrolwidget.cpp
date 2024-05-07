@@ -12,6 +12,7 @@ MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   layout->addWidget(endpos);
   layout->addWidget(unitSelector);
   layout->addWidget(startMeasure);
+  layout->addWidget(stopButton);
   layout->setAlignment(Qt::AlignmentFlag::AlignTop);
   setupConnections();
   parameterFrame->setLayout(layout);
