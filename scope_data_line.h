@@ -2,6 +2,7 @@
 #define DATA_LINE
 
 #include <QtWidgets>
+#include <iostream>
 
 class ScopeDataLine : public QWidget{
   Q_OBJECT;

@@ -19,4 +19,7 @@ void ScopeDataLine::newData(double value) {
   this->dataValue->setText(QString::number(value));
 }
 
-double ScopeDataLine::readData() { return *this->data; }
+double ScopeDataLine::readData() { 
+  std::cout << "Data sent: " << *this->data << std::endl;
+  return *this->data; 
+}
