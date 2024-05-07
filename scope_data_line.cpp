@@ -17,6 +17,7 @@ ScopeDataLine::ScopeDataLine(std::string dataName, double value,
 
 void ScopeDataLine::newData(double value) {
   this->dataValue->setText(QString::number(value));
+  *this->data = value;
 }
 
 double ScopeDataLine::readData() { 
