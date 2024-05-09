@@ -74,6 +74,7 @@ void MeasureControlWindow::setupConnections() {
           &MeasureControlWindow::stopMeasProc);
   connect(resetZoom, &QPushButton::clicked, this,
           &MeasureControlWindow::resetZoomSlot);
+  connect(saveButton,&QPushButton::clicked,this,&MeasureControlWindow::saveDataSlot);
 }
 
 void MeasureControlWindow::sendCurrentIndex(int index) {
