@@ -138,6 +138,7 @@ void MeasureControlWindow::resetZoomSlot() { chart->zoomReset(); }
 void MeasureControlWindow::saveDataSlot() {
   QLineSeries series = qobject_cast<QLineSeries>(chart->series().at(0));
   QVector<QPointF> points = series.pointsVector();
+  std::cout << "Data extraction reached" << std::endl;
   for (int i = 0; i < points.size(); i++) {
     std::cout << "Point x: " << points.at(i).x() << std::endl;
   }
