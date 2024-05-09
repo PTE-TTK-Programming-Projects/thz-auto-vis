@@ -16,7 +16,7 @@ private:
   void closeEvent(QCloseEvent *event);
   QLineEdit *startpos, *endpos, *stepsize;
   QComboBox *unitSelector;
-  QPushButton *showInstrumentControls, *startMeasure, *stopButton, *resetZoom;
+  QPushButton *showInstrumentControls, *startMeasure, *stopButton, *resetZoom, *saveButton;
   QLabel *start, *step, *stop;
   QFrame *parameterFrame, *visualizationFrame;
   QChart *chart;

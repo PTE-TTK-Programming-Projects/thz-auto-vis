@@ -14,6 +14,7 @@ MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   layout->addWidget(unitSelector);
   layout->addWidget(startMeasure);
   layout->addWidget(stopButton);
+  layout->addWidget(saveButton);
   layout->setAlignment(Qt::AlignmentFlag::AlignTop);
   setupConnections();
   parameterFrame->setLayout(layout);
@@ -59,6 +60,7 @@ void MeasureControlWindow::initDefaultValues() {
   measVals = new std::vector<double>();
   stopButton = new QPushButton("Stop and Reset");
   resetZoom = new QPushButton("Reset Zoom");
+  saveButton = new QPushButton("Save data");
 }
 
 void MeasureControlWindow::setupConnections() {
