@@ -74,7 +74,8 @@ void MeasureControlWindow::setupConnections() {
           &MeasureControlWindow::stopMeasProc);
   connect(resetZoom, &QPushButton::clicked, this,
           &MeasureControlWindow::resetZoomSlot);
-  connect(saveButton,&QPushButton::clicked,this,&MeasureControlWindow::saveDataSlot);
+  connect(saveButton, &QPushButton::clicked, this,
+          &MeasureControlWindow::saveDataSlot);
 }
 
 void MeasureControlWindow::sendCurrentIndex(int index) {
@@ -136,8 +137,8 @@ void MeasureControlWindow::stopMeasProc() { emit requestStop(); }
 void MeasureControlWindow::resetZoomSlot() { chart->zoomReset(); }
 
 void MeasureControlWindow::saveDataSlot() {
-  QLineSeries series = qobject_cast<QLineSeries>(chart->series().at(0));
-  QVector<QPointF> points = series.pointsVector();
+  QLineSeries *series = qobject_cast<QLineSeries *>(chart->series().last());
+  QVector<QPointF> points = series->pointsVector();
   std::cout << "Data extraction reached" << std::endl;
   for (int i = 0; i < points.size(); i++) {
     std::cout << "Point x: " << points.at(i).x() << std::endl;
