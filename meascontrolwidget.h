@@ -2,6 +2,7 @@
 #include <QtCharts>
 #include <QtWidgets>
 #include <iostream>
+#include <fstream>
 
 class MeasureControlWindow : public QFrame {
   Q_OBJECT;
@@ -14,7 +15,7 @@ private:
   void setupConnections();
   void hideEvent(QHideEvent *event);
   void closeEvent(QCloseEvent *event);
-  QLineEdit *startpos, *endpos, *stepsize;
+  QLineEdit *startpos, *endpos, *stepsize, *saveName;
   QComboBox *unitSelector;
   QPushButton *showInstrumentControls, *startMeasure, *stopButton, *resetZoom, *saveButton;
   QLabel *start, *step, *stop;

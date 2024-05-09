@@ -14,6 +14,7 @@ MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   layout->addWidget(unitSelector);
   layout->addWidget(startMeasure);
   layout->addWidget(stopButton);
+  layout->addWidget(saveName);
   layout->addWidget(saveButton);
   layout->setAlignment(Qt::AlignmentFlag::AlignTop);
   setupConnections();
@@ -61,6 +62,7 @@ void MeasureControlWindow::initDefaultValues() {
   stopButton = new QPushButton("Stop and Reset");
   resetZoom = new QPushButton("Reset Zoom");
   saveButton = new QPushButton("Save data");
+  saveName = new QLineEdit();
 }
 
 void MeasureControlWindow::setupConnections() {
@@ -137,10 +139,16 @@ void MeasureControlWindow::stopMeasProc() { emit requestStop(); }
 void MeasureControlWindow::resetZoomSlot() { chart->zoomReset(); }
 
 void MeasureControlWindow::saveDataSlot() {
-  QLineSeries *series = qobject_cast<QLineSeries *>(chart->series().last());
-  QVector<QPointF> points = series->pointsVector();
-  std::cout << "Data extraction reached" << std::endl;
-  for (int i = 0; i < points.size(); i++) {
-    std::cout << "Point x: " << points.at(i).x() << std::endl;
+  if (chart->series().isEmpty()) {
+    return;
+  } else {
+    std::ofstream dataFile;
+    dataFile.open(saveName->text().toStdString().c_str());
+    QLineSeries *series = qobject_cast<QLineSeries *>(chart->series().last());
+    QVector<QPointF> points = series->pointsVector();
+    for (int i = 0; i < points.size(); i++) {
+      dataFile << points.at(i).x() << ",\t" << points.at(i).y() << "\n";
+    }
+    dataFile.close();
   }
 }
