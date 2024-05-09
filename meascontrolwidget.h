@@ -29,6 +29,7 @@ private slots:
   void startMeasProc();
   void stopMeasProc();
   void resetZoomSlot();
+  void saveDataSlot();
 
 public slots:
   void recUnitIndex(int index);

@@ -131,3 +131,11 @@ void MeasureControlWindow::plotResults() {
 void MeasureControlWindow::stopMeasProc() { emit requestStop(); }
 
 void MeasureControlWindow::resetZoomSlot() { chart->zoomReset(); }
+
+void MeasureControlWindow::saveDataSlot() {
+  QLineSeries series = qobject_cast<QLineSeries>(chart->series().at(0));
+  QVector<QPointF> points = series.pointsVector();
+  for (int i = 0; i < points.size(); i++) {
+    std::cout << "Point x: " << points.at(i).x() << std::endl;
+  }
+}
