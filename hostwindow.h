@@ -1,9 +1,13 @@
-#ifndef HOST_WIN
-#define HOST_WIN
+#pragma once
 
 #include "./meascontrolwidget.h"
 #include "./scopewindow.h"
 #include "./zaberwindow.h"
+
+#ifndef MEASUREMENT_TYPE
+#define MEASUREMENT_TYPE sendAvg // sendAvg -> average; sendPtp -> peak-to-peak
+#endif // DEBUG
+
 
 class HostWindow : public QWidget {
   Q_OBJECT
@@ -23,5 +27,3 @@ private slots:
   void start(double pos);
   void stop();
 };
-
-#endif // HOST_WIN

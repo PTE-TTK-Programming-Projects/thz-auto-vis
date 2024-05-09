@@ -43,7 +43,7 @@ void HostWindow::controlHidden() { QCoreApplication::exit(); }
 void HostWindow::start(double pos) {
   connect(zaberWin, &ZaberWindow::motorReady, scopeWin,
           &ScopeWindow::extMeasure);
-  connect(scopeWin, &ScopeWindow::sendAvg, conWin,
+  connect(scopeWin, &ScopeWindow::MEASUREMENT_TYPE, conWin,
           &MeasureControlWindow::recMeasPoint);
   connect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
           &ZaberWindow::moveToUnitPos);
@@ -53,7 +53,7 @@ void HostWindow::start(double pos) {
 void HostWindow::stop() {
   disconnect(zaberWin, &ZaberWindow::motorReady, scopeWin,
              &ScopeWindow::extMeasure);
-  disconnect(scopeWin, &ScopeWindow::sendAvg, conWin,
+  disconnect(scopeWin, &ScopeWindow::MEASUREMENT_TYPE, conWin,
              &MeasureControlWindow::recMeasPoint);
   disconnect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
              &ZaberWindow::moveToUnitPos);

@@ -3,6 +3,7 @@
 MeasureControlWindow::MeasureControlWindow(QWidget *parent) : QFrame(parent) {
   initDefaultValues();
   QVBoxLayout *layout = new QVBoxLayout();
+  layout->addWidget(resetZoom);
   layout->addWidget(showInstrumentControls);
   layout->addWidget(start);
   layout->addWidget(startpos);
@@ -57,6 +58,7 @@ void MeasureControlWindow::initDefaultValues() {
   coords = new std::vector<double>();
   measVals = new std::vector<double>();
   stopButton = new QPushButton("Stop and Reset");
+  resetZoom = new QPushButton("Reset Zoom");
 }
 
 void MeasureControlWindow::setupConnections() {
@@ -68,6 +70,8 @@ void MeasureControlWindow::setupConnections() {
           &MeasureControlWindow::startMeasProc);
   connect(stopButton, &QPushButton::clicked, this,
           &MeasureControlWindow::stopMeasProc);
+  connect(resetZoom, &QPushButton::clicked, this,
+          &MeasureControlWindow::resetZoomSlot);
 }
 
 void MeasureControlWindow::sendCurrentIndex(int index) {
@@ -125,3 +129,5 @@ void MeasureControlWindow::plotResults() {
 }
 
 void MeasureControlWindow::stopMeasProc() { emit requestStop(); }
+
+void MeasureControlWindow::resetZoomSlot() { chart->zoomReset(); }
