@@ -1,3 +1,4 @@
 *.o
+*.txt
 moc*
 thz-auto-vis
