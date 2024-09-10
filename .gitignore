@@ -1,4 +1,4 @@
-*.o
-*.txt
+*
+!*.cpp
+!*.h
 moc*
-./thz-auto-vis

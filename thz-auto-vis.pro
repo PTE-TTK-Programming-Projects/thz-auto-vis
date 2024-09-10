@@ -8,6 +8,8 @@ INCLUDEPATH += . /opt/picoscope/include/libps5000a
 QT += widgets charts serialport
 LIBS += -L/opt/picoscope/lib -lps5000a 
 CONFIG += force_debug_info
+QMAKE_CC=clang
+QMAKE_CXX=clang++
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
