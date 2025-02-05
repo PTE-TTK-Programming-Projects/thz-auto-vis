@@ -6,8 +6,8 @@ TEMPLATE = app
 TARGET = thz-auto-vis
 INCLUDEPATH += . /opt/picoscope/include/libps5000a
 QT += widgets charts serialport
-LIBS += -L/opt/picoscope/lib -lps5000a 
-CONFIG += force_debug_info
+LIBS += -L/opt/picoscope/lib -lps5000a -lpicoipp
+# CONFIG += debug # This is only needed when you want to attach a debugger
 
 # You can make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
