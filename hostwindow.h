@@ -16,7 +16,7 @@ public:
 
 private:
   ScopeWindow *scopeWin;
-  ZaberWindow *zaberWin;
+  ZaberWindow *zaberWin, *secondZaberWin;
   MeasureControlWindow *conWin;
   QFrame *instrumentPanel;
 

@@ -42,4 +42,7 @@ private:
 
 public slots:
   void extMeasure();
+
+public:
+  bool isLive();
 };
