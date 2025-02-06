@@ -1,6 +1,4 @@
-#ifndef HOST_WINDOW
-#define HOST_WINDOW
-
+#pragma once
 #include "./scope.h"
 #include "./scope_data_line.h"
 #include <QtCharts>
@@ -45,5 +43,3 @@ private:
 public slots:
   void extMeasure();
 };
-
-#endif // HOST_WINDOW

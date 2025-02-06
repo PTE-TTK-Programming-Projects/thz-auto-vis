@@ -1,6 +1,4 @@
-#ifndef DATA_LINE
-#define DATA_LINE
-
+#pragma once
 #include <QtWidgets>
 #include <iostream>
 
@@ -20,4 +18,3 @@ private:
   double *data;
 };
 
-#endif

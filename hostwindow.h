@@ -6,8 +6,7 @@
 
 #ifndef MEASUREMENT_TYPE
 #define MEASUREMENT_TYPE sendAvg // sendAvg -> average; sendPtp -> peak-to-peak
-#endif // DEBUG
-
+#endif
 
 class HostWindow : public QWidget {
   Q_OBJECT

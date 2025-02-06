@@ -1,5 +1,4 @@
-#ifndef SCOPE_QT
-#define SCOPE_QT
+#pragma once
 #include <QtWidgets>
 #include <iostream>
 #include <ps5000aApi.h>
@@ -41,4 +40,3 @@ signals:
   void sendMeasurement(int32_t *bufferLength, int16_t *buffer);
 };
 
-#endif // SCOPE_QT
