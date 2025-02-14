@@ -41,13 +41,15 @@ void HostWindow::visChanged(bool isChecked) {
 void HostWindow::controlHidden() { QCoreApplication::exit(); }
 
 void HostWindow::start(double pos) {
-  connect(zaberWin, &ZaberWindow::motorReady, scopeWin,
-          &ScopeWindow::extMeasure);
-  connect(scopeWin, &ScopeWindow::MEASUREMENT_TYPE, conWin,
-          &MeasureControlWindow::recMeasPoint);
-  connect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
-          &ZaberWindow::moveToUnitPos);
-  zaberWin->moveToUnitPos(pos);
+  if (!(scopeWin->isLive())) { // do not run measurement loop when scope is in live mode
+    connect(zaberWin, &ZaberWindow::motorReady, scopeWin,
+            &ScopeWindow::extMeasure);
+    connect(scopeWin, &ScopeWindow::MEASUREMENT_TYPE, conWin,
+            &MeasureControlWindow::recMeasPoint);
+    connect(conWin, &MeasureControlWindow::requestNextStep, zaberWin,
+            &ZaberWindow::moveToUnitPos);
+    zaberWin->moveToUnitPos(pos);
+  }
 }
 
 void HostWindow::stop() {

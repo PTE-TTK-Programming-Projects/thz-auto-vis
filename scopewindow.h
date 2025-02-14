@@ -10,6 +10,7 @@ class ScopeWindow : public QFrame {
 
 public:
   ScopeWindow(QWidget *parent = nullptr);
+  bool isLive();
 
 private slots:
   void showStatus(std::string status);

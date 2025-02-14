@@ -219,3 +219,7 @@ void ScopeWindow::sendRatio() {
 void ScopeWindow::extMeasure(){
   scope->measure();
 }
+
+bool ScopeWindow::isLive(){
+  return this->liveButton->isChecked();
+}
